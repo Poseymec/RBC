@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\Avi;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\Contact;
+use App\Models\Newsletter;
 
 
 class AdminController extends Controller
@@ -21,7 +23,7 @@ class AdminController extends Controller
         $nombreAvi=Avi::count();
         $nombreUser= User::count();
         return view('admin.home',compact('nombreAvi','nombreUser'));
-      
+
     }
 
 
@@ -29,48 +31,48 @@ class AdminController extends Controller
     public function addcategory(){
         return view('admin.addcategory');
     }
-    
+
 
     /*------------------------------------------------------------------------------------------------------- */
     public function category(){
         $categories= Category::withCount('products')->get();
 
-      
+
         return view('admin.category')->with('categories',$categories);
     }
-    
-    
+
+
 
     /*------------------------------------------------------------------------------------------------------- */
     public function addslider(){
         return view('admin.addslider');
     }
-    
-    
-    
+
+
+
 
     /*------------------------------------------------------------------------------------------------------- */
     public function slider(){
         $sliders=Slider::get();
-        
+
         return view('admin.slider')->with('sliders',$sliders);
     }
 
     /**--------------------------------------------------------------------------------------------------- */
 
     public function choicecategorie(){
-        
+
         $categories=Category::get();
         return view('admin.choicecategorie')->with("categories",$categories);
-      
+
     }
-    
-    
+
+
 
     /*------------------------------------------------------------------------------------------------------- */
     public function addproduct(){
      $categories=Category::get();
-       
+
         return view('admin.addproduct')->with('categories',$categories);
     }
 
@@ -86,7 +88,7 @@ class AdminController extends Controller
     public function addpromo(){
         return view('admin.addpromo');
     }
-    
+
 
     /*------------------------------------------------------------------------------------------------------- */
     public function promo(){
@@ -103,8 +105,8 @@ class AdminController extends Controller
         return view('admin.userregister',compact('users',));
 
     }
-    
-    
+
+
     public function review(){
 
         $avis=Avi::get();
@@ -118,7 +120,7 @@ class AdminController extends Controller
         $roles= Role::get();
         return view('admin.roles')->with('roles',$roles);
     }
-    
+
     /**-------------------------------------------------------------------------------------------------------- */
     public function permissions(){
         $permissions = Permission::get();
@@ -131,5 +133,19 @@ class AdminController extends Controller
         $roles=Role::get();
 
         return view('admin.assignroletopermission',compact('permissions','roles'));
+    }
+
+    /**--------------------------------------------------------------------------------------------------- ------------- */
+
+    public function contact(){
+        $contact= Contact::get();
+        return view('admin.contact');
+    }
+
+    /**--------------------------------------------------------------------------------------------------- ------------- */
+
+    public function NewsLetter(){
+        $newsletters = Newsletter::get();
+        return view('admin.newsletter');
     }
 }

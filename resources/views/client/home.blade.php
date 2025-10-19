@@ -15,7 +15,7 @@
         <!-- Logo avec animation flottante -->
         <div class="mb-4 floating-div">
           <img
-            src="/images/logo.png"
+           src="{{asset('logo/logo7.png')}}" 
             alt="Logo Rainbow Business"
             class="mx-auto h-32 md:h-40 lg:h-48"
           />
@@ -43,44 +43,48 @@
 
     <!-- Carousel (version statique) -->
     <section class="max-w-6xl mx-auto mb-24">
-      <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8 text-center">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8 text-center">
         Nos Produits Phares
-      </h2>
-      <div class="relative overflow-hidden rounded-2xl shadow-2xl">
-        <!-- Affichage de la première image uniquement -->
-        <img
-          src="/images/image1.jpg"
-          alt="Produit 1"
-          class="w-full h-64 md:h-64 object-cover"
-        />
+    </h2>
 
-        <!-- Indicateurs (statiques – seul le premier est actif) -->
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          <span class="w-3 h-3 rounded-full bg-white"></span>
-          <span class="w-3 h-3 rounded-full bg-white/50"></span>
-          <span class="w-3 h-3 rounded-full bg-white/50"></span>
+    <div id="sliderContainer" class="relative overflow-hidden rounded-2xl shadow-2xl">
+        <!-- Slides -->
+        <div class="flex transition-transform duration-500" id="slidesWrapper">
+        @foreach ($sliders as $slider)
+        <div class="min-w-full relative">
+            <img
+            src="{{ asset('storage/slider_images/' . $slider->image) }}"
+            alt="{{ $slider->image }}"
+            class="w-full h-64 md:h-64 object-cover"
+            />
+            <div class="absolute inset-0 bg-black/30 flex flex-col justify-center items-start p-6 md:p-12">
+            <h5 class="text-white text-lg md:text-xl font-semibold mb-2">{{ $slider->description1 }}</h5>
+            <p class="text-white mb-4">{{ $slider->description2 }}</p>
+
+            </div>
+        </div>
+        @endforeach
         </div>
 
-        <!-- Flèches (désactivées mais visuellement présentes) -->
-        <button
-          disabled
-          class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/30 text-white rounded-full flex items-center justify-center backdrop-blur-sm opacity-60 cursor-not-allowed"
-          aria-label="Diapositive précédente"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Indicateurs -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        @foreach ($sliders as $index => $slider)
+        <span class="w-3 h-3 rounded-full {{ $index === 0 ? 'bg-white' : 'bg-white/50' }}" data-slide="{{ $index }}"></span>
+        @endforeach
+        </div>
+
+        <!-- Flèches -->
+        <button id="prevSlide" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/30 text-white rounded-full flex items-center justify-center backdrop-blur-sm">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
+        </svg>
         </button>
-        <button
-          disabled
-          class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/30 text-white rounded-full flex items-center justify-center backdrop-blur-sm opacity-60 cursor-not-allowed"
-          aria-label="Diapositive suivante"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button id="nextSlide" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/30 text-white rounded-full flex items-center justify-center backdrop-blur-sm">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
+        </svg>
         </button>
-      </div>
+    </div>
     </section>
     <section>
          @include('client.about')
@@ -117,3 +121,45 @@
       transform: translateY(-2px);
     }
   </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const slidesWrapper = document.getElementById('slidesWrapper');
+  const slides = slidesWrapper.children;
+  const indicators = document.querySelectorAll('#sliderContainer [data-slide]');
+  const prevBtn = document.getElementById('prevSlide');
+  const nextBtn = document.getElementById('nextSlide');
+  let current = 0;
+
+  function updateSlider() {
+    slidesWrapper.style.transform = `translateX(-${current * 100}%)`;
+    indicators.forEach((ind, i) => {
+      ind.classList.toggle('bg-white', i === current);
+      ind.classList.toggle('bg-white/50', i !== current);
+    });
+  }
+
+  prevBtn.addEventListener('click', () => {
+    current = (current === 0) ? slides.length - 1 : current - 1;
+    updateSlider();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    current = (current + 1) % slides.length;
+    updateSlider();
+  });
+
+  indicators.forEach(ind => {
+    ind.addEventListener('click', () => {
+      current = parseInt(ind.dataset.slide);
+      updateSlider();
+    });
+  });
+
+  // Optionnel : auto slide
+  setInterval(() => {
+    current = (current + 1) % slides.length;
+    updateSlider();
+  }, 5000);
+});
+  </script>

@@ -39,8 +39,6 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
 /*route vers le controller client */
 
-Route::prefix('{locale}')->where('locale', '[a-zA-Z]{2}')->group(
-    function () {
         Route::get('/',[ClientController::class , 'home']);
         Route::get('/store',[ClientController::class , 'store']);
         //Route::get('/checkout',[ClientController::class , 'checkout']);
@@ -51,11 +49,10 @@ Route::prefix('{locale}')->where('locale', '[a-zA-Z]{2}')->group(
 
         //Route::post('/client/saveAvis',[AvisController::class,'saveAvis']);
         //route vers aviscontroller
-    }
-);
+    
 
-// Redirection racine vers /fr par défaut
-Route::redirect('/', '/fr');
+
+
 
 Route::middleware(['auth.session','password.confirm','CheckRoles:Admin,super-Admin'])->group(function () {
     //routes vers les roles et les permissions

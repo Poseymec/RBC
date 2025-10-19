@@ -3,8 +3,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
       <a href="#" class="brand-link">
-     <img src="{{asset('logo/logo7.png')}}" alt="logo">
-
+            <img src="{{asset('logo/logo7.png')}}"  style="width:100px;   alt="logo">
     </a>
     <!-- Sidebar -->
      <!-- Sidebar -->
@@ -13,7 +12,7 @@
          {{--
          $premiereLettre=strtoupper(substr(Auth::user()->name,0,1));
          --}}
-  
+
      <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -26,7 +25,7 @@
       </div>
       @endauth
       @endif
-   
+
     <nav class="mt-2">
       <!-- Sidebar Menu -->
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -56,7 +55,7 @@
               </li>
             </ul>
           </li>
-          
+
           <li class="nav-item has-treeview {{request()->is('admin/addcategory' )||request()->is('admin/category' )? 'menu-open' : ''}}">
             <a href="#" class="nav-link {{request()->is('admin/addcategory' )||request()->is('admin/category' )? 'active' : ''}} ">
               <i class="nav-icon fas fa-folder"></i>
@@ -160,12 +159,12 @@
               </li>
             </ul>
           </li>
-       
-            
+
+
           @auth
           @role('super-Admin')
-        
-  
+
+
           <li class="nav-item has-treeview   {{request()->is('admin/roles' )||request()->is( 'admin/permissions')||request()->is( 'admin/assignroletopermission')? 'menu-open' : ''}}">
             <a href="#" class="nav-link  {{request()->is('admin/roles' )||request()->is( 'admin/permissions')||request()->is( 'admin/assignroletopermission')? 'active' : ''}}">
               <i class="nav-icon fas fa-folder"></i>
@@ -203,7 +202,7 @@
           @endauth
           @if (Route::has('login'))
             @auth
-               
+
           <li >
             <form action="{{route('logout')}}" method="POST">
               @csrf
@@ -217,3 +216,12 @@
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+
+
+    <style>
+
+        .logo{
+            width: 10;
+            height: 10;
+        }
+    </style>

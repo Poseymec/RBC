@@ -13,7 +13,7 @@
 
       <!-- Logo -->
       <a href="/" class="flex items-center space-x-2 rtl:space-x-reverse z-10">
-        <img src="/images/logo.png" class="h-10" alt="Logo" />
+        <img src="{{asset('logo/logo7.png')}}"  class="h-10" alt="Logo" />
       </a>
 
       <!-- Menu (mobile caché par défaut, desktop visible) -->
