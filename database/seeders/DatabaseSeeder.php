@@ -12,11 +12,11 @@ use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run():void 
+    public function run():void
     {
        //ajouter le superAdmin
 
-       $this->call(SuperAdminSeeder::class);
        $this->call(RoleSeeder::class);
+       $this->call(SuperAdminSeeder::class);
     }
 }

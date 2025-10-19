@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Styles de base */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    background-color: white;
+    color: black;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  html.dark {
+    background-color: #111827;
+    color: white;
+  }
+}

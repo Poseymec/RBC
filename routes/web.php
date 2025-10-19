@@ -39,26 +39,31 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
 /*route vers le controller client */
 
+Route::prefix('{locale}')->where('locale', '[a-zA-Z]{2}')->group(
+    function () {
+        Route::get('/',[ClientController::class , 'home']);
+        Route::get('/store',[ClientController::class , 'store']);
+        //Route::get('/checkout',[ClientController::class , 'checkout']);
+        Route::get('/productdetail/{id}',[ClientController::class , 'productdetail']);
+        Route::get('/rechercheclient',[ClientController::class , 'rechercheclient']);
+        //Route::get('/notationproduit/{id}',[ClientController::class,'notationproduit']);
+        //Route::get('/commandeproduit/{id}',[CommandeController::class,'commandeproduit']);
 
-Route::get('/',[ClientController::class , 'home']);
-Route::get('/store',[ClientController::class , 'store']);
-Route::get('/checkout',[ClientController::class , 'checkout']);
-Route::get('/productdetail/{id}',[ClientController::class , 'productdetail']);
-Route::get('/rechercheclient',[ClientController::class , 'rechercheclient']);
-Route::get('/notationproduit/{id}',[ClientController::class,'notationproduit']);
-Route::get('/commandeproduit/{id}',[CommandeController::class,'commandeproduit']);
+        //Route::post('/client/saveAvis',[AvisController::class,'saveAvis']);
+        //route vers aviscontroller
+    }
+);
 
-Route::post('/client/saveAvis',[AvisController::class,'saveAvis']);
-//route vers aviscontroller
-
+// Redirection racine vers /fr par défaut
+Route::redirect('/', '/fr');
 
 Route::middleware(['auth.session','password.confirm','CheckRoles:Admin,super-Admin'])->group(function () {
     //routes vers les roles et les permissions
-    
+
     Route::middleware(['super-Admin'])->group(function(){
-        
-        
-        
+
+
+
         Route::post('/admin/createrole',[RoleController::class,'createrole']);
         Route::post('/admin/saveassignment',[RolePermissionController::class,'saveassignment']);
         Route::get('/admin/editerole/{id}',[RoleController::class,'editerole']);
@@ -66,31 +71,31 @@ Route::middleware(['auth.session','password.confirm','CheckRoles:Admin,super-Adm
         Route::get('/admin/deleterole/{id}',[RoleController::class,'deleterole']);
         Route::delete('/admin/yesdeleterole/{id}',[RoleController::class,'yesdeleterole']);
         //Route::get('/checkrole',[RoleController::class,'checkRole']);
-        
+
         Route::post('/admin/createpermission',[PermissionController::class,'createpermission']);
         Route::get('/admin/editepermission/{id}',[PermissionController::class,'editepermission']);
         Route::put('admin/updatepermission/{id}',[PermissionController::class,'updatepermission']);
         Route::get('/admin/deletepermission/{id}',[PermissionController::class,'deletepermission']);
         Route::delete('/admin/yesdeletepermission/{id}',[PermissionController::class,'yesdeletepermission']);
-        
-        
-        
+
+
+
         //route vers resgisteruserVontroller
-        
-        
-        
+
+
+
         Route::get('/admin/deleteuser/{id}',[RegisteredUserController::class,'deleteuser']);
         Route::delete ('/admin/yesdeleteuser/{id}',[RegisteredUserController::class,'yesdeleteuser']);
         Route::get('/admin/editeroleuser/{id}',[RegisteredUserController::class,'editeroleuser']);
         Route::post('/admin/assignroleuser/{id}',[RegisteredUserController::class,'assignroleuser']);
-        
+
         //Route::get('/admin/checkpermission',[PermissionController::class,'checkPermission']);
-        
+
     });
     /**route vers le controller admin */
     //middleware
-    
-    
+
+
     Route::get('/admin',[AdminController::class,'home']);
     Route::get('/admin/addcategory',[AdminController::class,'addcategory']);
     Route::get('/admin/category',[AdminController::class,'category']);
@@ -105,20 +110,20 @@ Route::middleware(['auth.session','password.confirm','CheckRoles:Admin,super-Adm
     Route::get('/admin/roles',[AdminController::class,'roles']);
     Route::get('/admin/permissions',[AdminController::class,'permissions']);
     Route::get('/admin/assignroletopermission',[AdminController::class,'assignroletopermission']);
-    
+
     //route vers les categotirs controller
-    
-    
+
+
     Route::post('/admin/savecategory',[CategoryController::class,'savecategory']);
     Route::get('/admin/deletecategory/{id}',[CategoryController::class,'deletecategory']);
     Route::delete('/admin/yesdeletecategory/{id}',[CategoryController::class,'yesdeletecategory']);
     Route::get('/admin/editecategory/{id}',[CategoryController::class,'editecategory']);
     Route::put('admin/updatecategory/{id}',[CategoryController::class,'updatecategory']);
-    
-    
-    
+
+
+
     //route vers les sliders controller
-    
+
     Route::post('/admin/saveslider',[SliderController::class,'saveslider']);
     Route::get('/admin/deleteslider/{id}',[SliderController::class,'deleteslider']);
     Route::delete('/admin/yesdeleteslider/{id}',[SliderController::class,'yesdeleteslider']);
@@ -126,11 +131,11 @@ Route::middleware(['auth.session','password.confirm','CheckRoles:Admin,super-Adm
     Route::put('/admin/updateslider/{id}',[SliderController::class,'updateslider']);
     Route::put('/admin/unactivateslider/{id}',[SliderController::class,'unactivateslider']);
     Route::put('/admin/activateslider/{id}',[SliderController::class,'activateslider']);
-    
-    
+
+
     //route vers les products controller
-    
-    
+
+
     Route::post('/admin/saveproduct/',[ProductController::class,'saveproduct']);
     Route::get('/admin/editeproduct/{id}',[ProductController::class,'editeproduct']);
     Route::put('/admin/unactivateproduct/{id}',[ProductController::class,'unactivateproduct']);

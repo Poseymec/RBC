@@ -1,41 +1,34 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navbar identique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  	<link rel="stylesheet" type="text/css" href="{{asset('Frontend/css/roboto-font.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('Frontend/css/fontawesome-all.min.css')}}">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="{{asset('Frontend/css/style.css')}}"/>
+  <script>
+    // Active le mode sombre par défaut comme dans ton composant
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <style>
 
-		<title> @yield('titre')</title>
 
-		<!-- Google font -->
-		<link href="{{asset('https://fonts.googleapis.com/css?family=Montserrat:400,500,700')}}" rel="stylesheet">
 
-		<!-- Bootstrap -->
-		<link type="text/css" rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}"/>
 
-		<!-- Slick -->
-		<link type="text/css" rel="stylesheet" href="{{asset('frontend/css/slick.css')}}"/>
-		<link type="text/css" rel="stylesheet" href="{{asset('frontend/css/slick-theme.css')}}"/>
-
-		<!-- nouislider -->
-		<link type="text/css" rel="stylesheet" href="{{asset('frontend/css/nouislider.min.css')}}"/>
-		<!-- popper.js-->
-		<link rel="stylesheet" href="{{asset('https://unpkg.com/@popperjs/core@2')}}">
-		<!-- Font Awesome Icon -->
-		<link rel="stylesheet" href="{{asset('frontend/css/font-awesome.min.css')}}">
-
-		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="{{asset('frontend/css/style.css')}}"/>
-
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
-    </head>
+    footer a {
+      transition: all 0.2s ease;
+    }
+    footer a:hover {
+      color: #f87171 !important; /* rouge doux */
+    }
+  </style>
+</head>
 	<body>
 
 
@@ -57,8 +50,8 @@
           @include('client_layout.footer')
 
           {{---fin fooer--}}
-        
-  
-   
+
+
+
     </body>
 </html>

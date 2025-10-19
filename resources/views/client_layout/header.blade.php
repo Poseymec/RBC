@@ -1,196 +1,63 @@
-		<!-- HEADER -->
-		<header>
-			<!-- TOP HEADER -->
-			<div id="top-header">
-				<div class="container">
-					<ul class="header-links pull-left">
-						<li><a href="tel:+237650781558"><i class="fa fa-phone"></i> +237 650781558</a></li>
-						<li><a href="mailto:nlelectro01@email.com"><i class="fa fa-envelope-o"></i> nlelectro01@email.com</a></li>
-						<li><a href="https://wwww.google.com/maps/search/?api=1&query=4.1046654,9.6181041"><i class="fa fa-map-marker"></i> carrefour MUTZIG bonaberi</a></li>
-					</ul>
-					
-					@if (Route::has('login'))
-					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> CFA</a></li>
-						<li>
-							@auth
-							<div class="dropdown">
-								<!-- Bouton de déclenchement -->
-									<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-										<i class="fa fa-user-o"></i>{{ Auth::user()->name }} <span class="caret"></span>
-									</button>
-											
-									<!-- Contenu du dropdown -->
-									<ul class="dropdown-menu personnal-links " aria-labelledby="dropdownMenu1">
-										{{--<li><a   href="{{url('/profile/edit')}}"><i class="fa fa-user-o"></i>Profil</a></li>--}}
-									
-										@role('super-Admin|Admin')
-										<li><a href="{{url('/admin')}}?status=success"><i class="fa fa-unlock"></i>Administration</a></li>
-										@endrole
-								
-								
-										<li role="separator" class="divider">-------------------------------------------</li>
-										<li >
-											<form action="{{route('logout')}}" method="POST">
-											@csrf
-												<button  name="logout"  style="background:#fff; border:#fff; "><i class="fa fa-sign-out"></i>Deconnexion</button>
-											</form>
-										</li>
-									</ul>
-							</div>
-						</li>
-						@else
-						<li><a  href="{{route('register')}}">Inscription</a></li>
-						@if (Route::has('register'))
-						<li><a  href="{{route('login')}}">Connexion</a></li>
-						@endif
-						@endauth
-					</ul>
-					@endif
-				</div>
-			</div>
-			<!-- /TOP HEADER -->
 
-			<!-- MAIN HEADER -->
-			<div id="header">
-				<!-- container -->
-				<div class="container">
-					<!-- row -->
-					<div class="row">
-						<!-- LOGO -->
-						<div class="col-md-3">
-							<div class="header-logo">
-								<a href="#" class="logo">
-                                    <img src="{{asset('/frontend/img/logo7.png')}}" alt="">
-                                </a>
-							</div>
-						</div>
-						<!-- /LOGO -->
 
-						<!-- SEARCH BAR -->
-						<div class="col-md-6 col-sm-12">
-							<div class="header-search">
-							<form action="{{url('/rechercheclient')}}"  method="GET">
-								@csrf
-							        <!--<select class="input-select">
-										<option value="0"></option>
-										
-									</select>--->
-									
-									<input type="text" name="mot" class="input" placeholder="le nom du produit">
-									<button class="search-btn">Recherche</button>
-								</form>
-							</div>
-						</div>
-						<!-- /SEARCH BAR -->
+  <script>
+    // Active le mode sombre par défaut comme dans ton composant
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <body class=" bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100">
+  <!-- Navbar exactement comme dans ton template -->
+  <nav class=" mb-10  bg-white/50 backdrop-blur border-b border-gray-200/40 dark:bg-gray-900/50 dark:border-gray-700/40 fixed top-4 left-4 right-4 z-50 rounded-2xl shadow-md shadow-black/25 dark:shadow-black/70 transition-all duration-300">
+    <div class="max-w-screen-xl mx-auto px-3 py-2 flex items-center justify-between">
 
-						<!-- ACCOUNT -->
-						<div class="col-md-3 clearfix">
-							<div class="header-ctn">
-								<!-- Wishlist -->
-								<!--<div>
-									<a href="#">
-										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
-										<div class="qty">2</div>
-									</a>
-								</div>-->
-								<!-- /Wishlist -->
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-2 rtl:space-x-reverse z-10">
+        <img src="/images/logo.png" class="h-10" alt="Logo" />
+      </a>
 
-								<!-- Cart -->
-							{{--	<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Votre Panier</span>
-										<div class="qty">3</div>
-									</a>
-									<div class="cart-dropdown">
-										<div class="cart-list">
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="{{asset('/frontend/img/product01.png')}}" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
+      <!-- Menu (mobile caché par défaut, desktop visible) -->
+      <!-- Ici, on le rend visible uniquement sur desktop pour le rendu statique -->
+      <div class="hidden md:flex md:items-center md:space-x-4 font-medium">
+        <!-- Items de navigation -->
+        <a href="/" class="font-sans block py-2 px-3 rounded-lg transition-colors duration-200 text-center text-lg font-bold text-red-600 dark:text-red-400">
+          Accueil
+        </a>
+        <a href="/#about" class="font-sans block py-2 px-3 rounded-lg transition-colors duration-200 text-center text-lg font-medium text-gray-900 hover:bg-gray-100/70 dark:text-gray-200 dark:hover:bg-gray-700/70 md:hover:bg-transparent md:hover:text-red-600 md:dark:hover:text-red-400">
+          À propos
+        </a>
+        <a href="/#services" class="font-sans block py-2 px-3 rounded-lg transition-colors duration-200 text-center text-lg font-medium text-gray-900 hover:bg-gray-100/70 dark:text-gray-200 dark:hover:bg-gray-700/70 md:hover:bg-transparent md:hover:text-red-600 md:dark:hover:text-red-400">
+          Services
+        </a>
+        <a href="/#contact" class="font-sans block py-2 px-3 rounded-lg transition-colors duration-200 text-center text-lg font-medium text-gray-900 hover:bg-gray-100/70 dark:text-gray-200 dark:hover:bg-gray-700/70 md:hover:bg-transparent md:hover:text-red-600 md:dark:hover:text-red-400">
+          Contact
+        </a>
+        <a href="{{url('/store')}} "class="font-sans block py-2 px-3 rounded-lg transition-colors duration-200 text-center text-lg font-medium text-gray-900 hover:bg-gray-100/70 dark:text-gray-200 dark:hover:bg-gray-700/70 md:hover:bg-transparent md:hover:text-red-600 md:dark:hover:text-red-400">
+          Produit
+        </a>
+      </div>
 
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="{{asset('/frontend/img/product02.png')}}" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
-										</div>
-										<div class="cart-summary">
-											<small>3 Item(s) selected</small>
-											<h5>SUBTOTAL: $2940.00</h5>
-										</div>
-										<div class="cart-btns">
-											<!--<a href="#">voir le panier</a>-->
-											<a href="{{url('/checkout')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<!-- /Cart -->--}}
-								
-									
-								<!-- Menu Toogle -->
-								<div class="menu-toggle">
-									<a href="#">
-										<i class="fa fa-bars"></i>
-										<span>Menu</span>
-									</a>
-								</div>
-								<!-- /Menu Toogle -->
-							</div>
-						</div>
-						<!-- /ACCOUNT -->
-					</div>
-					<!-- row -->
-				</div>
-				<!-- container -->
-			</div>
-			<!-- /MAIN HEADER -->
-		</header>
-		<!-- /HEADER -->
-		<!-- NAVIGATION -->
-		<nav id="navigation">
-			@if (Session('error'))
-			<div class="alert alert-danger">
-				{{session('error')}}
-			</div>
-				
-			@endif
-			@if (Session::has('success'))
-			<!--<div class="alert alert-success">{{	Session('success')}}</div>
-				
-			@endif
-		
-			<!-- container -->
-			<div class="container">
-				<!-- responsive-nav -->
-				<div id="responsive-nav">
-					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-						<li class="{{request()->is('/')? 'active' : ''}}"><a href="{{url('/')}}">Accueil</a></li>
-						<li  class="{{request()->is('store')? 'active' : ''}}"><a href="{{url('/store')}}">Boutique</a></li>
-						{{--<li class="{{request()->is('')? 'active' : ''}}"><a href="{{url('/store')}}">Categories</a></li>
-						<li class="{{request()->is('store')? 'active' : ''}}"><a href="{{url('/store')}}">Apareils Electroniques</a></li>
-						<li class="{{request()->is('store')? 'active' : ''}}"><a href="{{url('/store')}}">Telephones</a></li>
-						<li class="{{request()->is('store')? 'active' : ''}}"><a href="{{url('/store')}}">Ordinateurs</a></li>
-						<li class="{{request()->is('store')? 'active' : ''}}"><a href="{{url('/store')}}">Accessoires</a></li>--}}
-					</ul>
-					<!-- /NAV -->
-				</div>
-				<!-- /responsive-nav -->
-			</div>
-			<!-- /container -->
-		</nav>
-		<!-- /NAVIGATION -->
+      <!-- Contrôles : Langue, Thème, Bouton mobile -->
+      <div class="flex items-center gap-2 z-10">
+        <!-- Simuler LocaleSelector -->
+        <x-locale-switcher />
+        <!-- Simuler ThemeSelector -->
+       <x-ThemeSelector/>
+
+        <!-- Bouton menu mobile (burger) -->
+        <button type="button" class="inline-flex items-center p-2 w-8 h-8 justify-center text-red-400 rounded-lg md:hidden hover:bg-red-100/70 focus:outline-none focus:ring-2 focus:ring-red-300/50 dark:text-red-300 dark:hover:bg-red-700/70 dark:focus:ring-red-600/50 transition-colors duration-200">
+          <span class="sr-only">Menu</span>
+          <i class="ti ti-menu-2 w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenu factice pour le scroll -->
+  <!--<div class="space-y-96 px-4">
+    <section id="hero" class="h-96 bg-blue-100 dark:bg-blue-900/30 rounded-xl"></section>
+    <section id="about" class="h-96 bg-green-100 dark:bg-green-900/30 rounded-xl"></section>
+    <section id="services" class="h-96 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl"></section>
+    <section id="contact" class="h-96 bg-purple-100 dark:bg-purple-900/30 rounded-xl"></section>
+  </div>-->
+

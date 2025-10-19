@@ -1,0 +1,124 @@
+{
+  "home-nav": "Accueil",
+  "about": "À propos",
+  "services": "Services",
+  "contact": "Contact",
+  "login": "Connexion",
+  "product": "Produit",
+
+  "home": {
+    "logo_alt": "Logo Rainbow Business",
+    "title": "RAINBOW BUSINESS & CONSULTING",
+    "description": "Nous mettons à votre disposition une large gamme de produits de qualité allant des articles pour l’hygiène et l’entretien aux produits pratiques pour la maison et la restauration.",
+    "cta_button": "Explorez nos produits",
+    "carousel_title": "Découvrez nos produits",
+    "go_to_slide": "Aller à la diapositive {index}",
+    "prev_slide": "Diapositive précédente",
+    "next_slide": "Diapositive suivante"
+  },
+
+  "about_page": {
+    "title": "À propos de Rainbow Business",
+    "founded": "Fondée en 2011",
+    "description": "Rainbow Business, entreprise camerounaise depuis 2011, offre des produits de qualité pour le quotidien : hygiène, entretien, maison et restauration. Notre mission : fournir aux ménages et professionnels des solutions fiables, accessibles et adaptées aux réalités locales. Avec Rainbow Business, choisissez l’expérience, la proximité et la confiance.",
+    "distribution": {
+      "title": "Distribution & Vente",
+      "text": "Nous proposons une large gamme de produits de qualité (papier aluminium, film alimentaire, cirage, fil dentaire, etc.), disponibles pour particuliers, distributeurs et entreprises."
+    },
+    "custom": {
+      "title": "Approvisionnement sur mesure",
+      "text": "Commandes en gros adaptées aux besoins spécifiques des hôtels, restaurants, supermarchés, pharmacies."
+    }
+  },
+  "services_page": {
+    "title": "Nos services",
+    "title2":"Des solutions adaptées à tous vos besoins professionnels.",
+    "distribution": {
+      "title": "Distribution & Vente",
+      "description": "Une large gamme de produits de qualité pour particuliers, distributeurs et entreprises."
+    },
+    "custom_supply": {
+      "title": "Approvisionnement sur mesure",
+      "description": "Solutions en gros pour hôtels, restaurants, supermarchés et pharmacies."
+    },
+    "quality": {
+      "title": "Achats Internationaux",
+      "description": "Possibilité pour nos clients B2B de bénéficier d'un sourcing global et d'une prise en charge complète du processus d'importation, tout ceci grâce à notre dense réseau de partenaires fiables en Asie, en Europe, en Afrique et en Amérique"
+    }
+  },
+
+
+
+
+
+  "products_page": {
+    "title": "Nos Produits",
+    "search_label": "Rechercher",
+    "search_placeholder": "Nom du produit...",
+    "category_label": "Catégorie",
+    "price_label": "Prix (F)",
+    "reset_filters": "Réinitialiser les filtres",
+    "sort_label": "Trier par :",
+    "sort_options": {
+      "popular": "Populaire",
+      "price_asc": "Prix croissant",
+      "price_desc": "Prix décroissant",
+      "rating": "Meilleure note",
+      "reviews": "Plus d'avis"
+    },
+    "results_count": "{count} produit(s) trouvé(s)",
+    "no_results_title": "Aucun produit trouvé",
+    "no_results_text": "Essayez de modifier vos filtres ou votre recherche.",
+    "view_button": "Voir",
+    "categories": {
+      "all": "Toutes les catégories",
+      "imprimantes": "Imprimantes",
+      "scanners": "Scanners",
+      "consommables": "Consommables",
+      "papier": "Papier",
+      "logiciels": "Logiciels"
+    }
+
+},
+
+
+
+  "product_detail": {
+    "back_to_products": "Retour aux produits",
+    "price_currency": "XOF",
+    "reviews": "{count} avis",
+    "add_to_favorites": "Ajouter aux favoris",
+    "remove_from_favorites": "Retirer des favoris"
+  },
+
+
+
+  "contact_page": {
+    "title": "Contact & Newsletter",
+    "subtitle": "Restons en contact !",
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Inscrivez-vous pour recevoir nos offres et nouveautés.",
+      "email_label": "Email *",
+      "phone_label": "Téléphone (optionnel)",
+      "submit_button": "S’inscrire"
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Une question ? Un projet ? Écrivez-nous !",
+      "name_label": "Nom *",
+      "email_label": "Email *",
+      "phone_label": "Téléphone",
+      "message_label": "Message *",
+      "submit_button": "Envoyer"
+    },
+    "alerts": {
+      "contact_missing_fields": "Veuillez remplir tous les champs obligatoires.",
+      "contact_success": "Merci ! Votre message a bien été envoyé.",
+      "newsletter_missing_email": "Veuillez entrer votre email.",
+      "newsletter_success": "Merci pour votre inscription !"
+    }
+
+}
+
+}

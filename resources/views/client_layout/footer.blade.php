@@ -1,172 +1,81 @@
-      		<!-- NEWSLETTER -->
-              <div id="newsletter" class="section">
-                <!-- container -->
-                <div class="container">
-                    <!-- row -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="newsletter">
-                                <p>Entrez votre Numéro de Téléphone ou votre adresse mail pour recevoir des notification lors de nos  <strong>PROMOTIONS.</strong></p>
-                                <form>
-                                    <input class="input" type="email" placeholder="Enter Your Email">
-                                    <button class="newsletter-btn"><i class="fa fa-envelope"></i>S'abonner</button>
-                                </form>
-                                <ul class="newsletter-follow">
-                                    <li>
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-instagram"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /row -->
-                </div>
-                <!-- /container -->
-            </div>
-            <!-- /NEWSLETTER -->
-    
-            <!-- FOOTER -->
-            <footer id="footer">
-                <!-- top footer -->
-                <div class="section">
-                    <!-- container -->
-                    <div class="container">
-                        <!-- row -->
-                        <div class="row">
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">A propos de nous</h3>
-                                    <p>NL telecom est une boutique de vente des Telephones portables, ordinateurs, Appareils electroniques,Accessoires electroniques et bien d'autres. Notre boutique physique est 
-                                         ouverte de lundi a samedi 8h-20h </p>
-                                         <ul class="footer-links">
-                                        <li><a href="https://wwww.google.com/maps/search/?api=1&query=4.1046654,9.6181041"><i class="fa fa-map-marker"></i> carrefour MUTZIG bonaberi</a></li>
-                                        <li><a href="tel:+237650781558"><i class="fa fa-phone"></i> +237 650781558</a></li>
-                                        <li><a href="mailto:nlelectro01@email.com"><i class="fa fa-envelope-o"></i> nlelectro01@email.com</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-    
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">Categories</h3>
-                                    <ul class="footer-links">
-                                        <li><a href="#">Bonnes Affaires</a></li>
-                                        <li><a href="#">Appareils Electroniques</a></li>
-                                        <li><a href="#">Telephones</a></li>
-                                        <li><a href="#">Ordinateurs</a></li>
-                                        <li><a href="#">Accessoires</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-    
-                            <div class="clearfix visible-xs"></div>
-    
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">Informations</h3>
-                                    <ul class="footer-links">
-                                        <li><a href="#">A propos</a></li>
-                                        <li><a href="#">Contact </a></li>
-                                        <li><a href="#">Politique de confidentialité</a></li>
-                                        <!--<li><a href="#">Orders and Returns</a></li>-->
-                                        <li><a href="#">Termes & Conditions</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-    
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">Services</h3>
-                                    <ul class="footer-links">
-                                        <li><a href="#">Mon Compte</a></li>
-                                        <!--<li><a href="#">voir le panier</a></li>-->
-                                        <!--<li><a href="#">Wishlist</a></li>-->
-                                        <!--<li><a href="#">Track My Order</a></li>-->
-                                        <li><a href="#">Aide</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /row -->
-                    </div>
-                    <!-- /container -->
-                </div>
-                <!-- /top footer -->
-    
-                <!-- bottom footer -->
-                <div id="bottom-footer" class="section">
-                    <div class="container">
-                        <!-- row -->
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <ul class="footer-payments">
-                                    <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-                                </ul>
-                                <!--<span class="copyright">
-                                     <a target="_blank" href="https://www.templateshub.net">Templates Hub</a>
-                                </span>-->
-                            </div>
-                        </div>
-                            <!-- /row -->
-                    </div>
-                    <!-- /container -->
-                </div>
-                <!-- /bottom footer -->
-            </footer>
-            <!-- /FOOTER -->
-    
-            <!-- jQuery Plugins -->
-            <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
-            <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-            <script src="{{asset('frontend/js/slick.min.js')}}"></script>
-            <script src="{{asset('frontend/js/nouislider.min.js')}}"></script>
-            <script src="{{asset('frontend/js/jquery.zoom.min.js')}}"></script>
-            <script src="{{asset('frontend/js/main.js')}}"></script>
 
-            {{-- script pour gerer les message--}}
-            <script>
-                document.addEventListener('DOMContentLoaded',function(){
-                    let successMessage=document.querySelector('.alert-success');
-                    let errorMessage=document.querySelector('.alert-danger');
-    
-                    //afficher les message pour une durée de 2s
-    
-                    function hideMessage(element)  {
-                        if(element){
-                            successMessage.style.transition='opacity 1s';
-                            successMessage.style.opacity='0.5';
-                            element.addEventListener('transitionend',function(){
-                                element.style.display='none';
-                            });
-                        }
-                    }
+  <footer class=" bottom-0 mt-10left-0 w-full bg-gray-900 text-white pt-12 pb-8 px-4 md:px-8 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto">
+      <!-- Grille de colonnes -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
 
-                    setTimeout(function(){
-                        hideMessage(successMessage);
-                        hideMessage(errorMessage);
-                        
-                    }, 5000);
-                
-	  
+        <!-- Colonne 1 : Logo + Description -->
+        <div>
+          <a href="/" class="flex items-center space-x-2 mb-4">
+            <img src="/images/logo.png" class="h-15" alt="Rainbow Business Logo" />
+            <span class="text-xl font-bold">Rainbow Business</span>
+          </a>
+          <p class="text-gray-400 leading-relaxed max-w-xs">
+            Découvrez nos produits variés et restez connectés pour nos nouveautés.
+          </p>
+        </div>
 
+        <!-- Colonne 2 : Liens rapides -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Liens Rapides</h3>
+          <ul class="space-y-2">
+            <li><a href="/" class="text-gray-400 hover:text-white block">Accueil</a></li>
+            <li><a href="/about" class="text-gray-400 hover:text-white block">À propos</a></li>
+            <li><a href="/services" class="text-gray-400 hover:text-white block">Services</a></li>
+            <li><a href="/contact" class="text-gray-400 hover:text-white block">Contact</a></li>
+            <li><a href="/product" class="text-gray-400 hover:text-white block">Produits</a></li>
+          </ul>
+        </div>
 
-                        
-                      
-                });
-            </script>
- 
-    
+        <!-- Colonne 3 : Contact -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact</h3>
+          <address class="not-italic text-gray-400 space-y-2">
+            <p>Douala, Cameroun</p>
+            <p>Pharmacie Axial montée Diedo-Douala</p>
+            <p>📧 rainbow.bc.ltd@gmail.com</p>
+            <p>📞 697065493</p>
+          </address>
+        </div>
+
+        <!-- Colonne 4 : Réseaux sociaux -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Suivez-nous</h3>
+          <div class="flex space-x-4">
+            <!-- Facebook -->
+            <a
+              href="https://www.facebook.com/share/19mhxJokTf/"
+              target="_blank"
+              class="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors duration-300"
+              aria-label="Facebook"
+            >
+              <i class="ti ti-brand-facebook w-5 h-5"></i>
+            </a>
+            <!-- Instagram -->
+            <a
+              href="https://www.instagram.com/rainbow.bc.ltd?igsh=NWoxbG51dncza3Rj"
+              target="_blank"
+              class="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors duration-300"
+              aria-label="Instagram"
+            >
+              <i class="ti ti-brand-instagram w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ligne de séparation -->
+      <div class="border-t border-gray-800 pt-8 mt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+          <p>© 2025 RAINBOW-BUSINESS & CONSULTING. Tous droits réservés. by DIGITALPRINT service</p>
+          <div class="flex space-x-4 mt-4 md:mt-0">
+            <a href="/privacy" class="hover:text-white">Politique de confidentialité</a>
+            <a href="/terms" class="hover:text-white">Conditions d'utilisation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+{
+  "home-nav": "Home",
+  "about": "About",
+  "services": "Services",
+  "contact": "Contact",
+  "login": "Login",
+  "product": "Product",
+
+  "home": {
+    "logo_alt": "Rainbow Business Logo",
+    "title":"RAINBOW BUSINESS & CONSULTING" ,
+    "description": "We offer you a wide range of high-quality products, from hygiene and cleaning supplies to practical items for home and food service.",
+    "cta_button": "Explore Our Products",
+    "carousel_title": "Discover our products",
+    "go_to_slide": "Go to slide {index}",
+    "prev_slide": "Previous slide",
+    "next_slide": "Next slide"
+  },
+
+  "about_page": {
+    "title": "About Rainbow Business",
+    "founded": "Founded in 2011",
+    "description": "Rainbow Business, a Cameroonian company since 2011, provides quality everyday products: hygiene, home care, and catering supplies. Our mission is to offer households and professionals reliable, accessible solutions suited to local needs. With Rainbow Business, you choose experience, closeness, and trust.",
+    "distribution": {
+      "title": "Distribution & Sales",
+      "text": "We offer a wide range of quality products (aluminum foil, cling film, shoe polish, dental floss, etc.), available to individuals, distributors, and businesses."
+    },
+    "custom": {
+      "title": "Custom Supply",
+      "text": "Bulk orders tailored to the specific needs of hotels, restaurants, supermarkets, and pharmacies."
+    }
+  },
+  "services_page": {
+    "title": "Our Services",
+    "title2":"Solutions adapted to all your professional needs.",
+    "distribution": {
+      "title": "Distribution & Sales",
+      "description": "A wide range of quality products for individuals, distributors, and businesses."
+    },
+    "custom_supply": {
+      "title": "Custom Supply",
+      "description": "Bulk solutions for hotels, restaurants, supermarkets, and pharmacies."
+    },
+    "quality": {
+      "title": "International Purchasing ",
+      "description": "Our B2B clients can benefit from global sourcing and complete import process management, thanks to our extensive network of reliable partners across Asia, Europe, Africa, and America.."
+    }
+  },
+
+
+
+  "products_page": {
+    "title": "Our Products",
+    "search_label": "Search",
+    "search_placeholder": "Product name...",
+    "category_label": "Category",
+    "price_label": "Price (F)",
+    "reset_filters": "Reset filters",
+    "sort_label": "Sort by:",
+    "sort_options": {
+      "popular": "Popular",
+      "price_asc": "Price: Low to High",
+      "price_desc": "Price: High to Low",
+      "rating": "Top Rated",
+      "reviews": "Most Reviews"
+    },
+    "results_count": "{count} product(s) found",
+    "no_results_title": "No products found",
+    "no_results_text": "Try adjusting your filters or search.",
+    "view_button": "View",
+    "categories": {
+      "all": "All categories",
+      "imprimantes": "Printers",
+      "scanners": "Scanners",
+      "consommables": "Supplies",
+      "papier": "Paper",
+      "logiciels": "Software"
+    }
+
+},
+
+
+
+  "product_detail": {
+    "back_to_products": "Back to products",
+    "price_currency": "XOF",
+    "reviews": "{count} reviews",
+    "add_to_favorites": "Add to favorites",
+    "remove_from_favorites": "Remove from favorites"
+  },
+
+
+
+
+  "contact_page": {
+    "title": "Contact & Newsletter",
+    "subtitle": "Let’s stay in touch!",
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Subscribe to receive our offers and news.",
+      "email_label": "Email *",
+      "phone_label": "Phone (optional)",
+      "submit_button": "Subscribe"
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "A question? A project? Write to us!",
+      "name_label": "Name *",
+      "email_label": "Email *",
+      "phone_label": "Phone",
+      "message_label": "Message *",
+      "submit_button": "Send"
+    },
+    "alerts": {
+      "contact_missing_fields": "Please fill in all required fields.",
+      "contact_success": "Thank you! Your message has been sent.",
+      "newsletter_missing_email": "Please enter your email.",
+      "newsletter_success": "Thank you for subscribing!"
+    }
+
+}
+
+}
