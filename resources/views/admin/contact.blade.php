@@ -50,24 +50,27 @@
                   <thead>
                   <tr>
                     <th>Num.</th>
-                    <th>Category Name</th>
-                    <th>Quantité</th>
+                    <th> Name</th>
+                    <th>email</th>
+                     <th>phone</th>
+                      <th>message</th>
                     <th>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($categories as $category)
+                    @foreach ($contacts as $contact)
                     <tr>
                       <td>{{$increment}}</td>
-                      <td>{{$category->category_name}}</td>
-
-                          <td>{{$category->products_count}}</td>
+                      <td>{{$contact->name}}</td>
+                        <td>{{$contact->email}}</td>
+                        <td>{{$contact->phone}}</td>
+                        <td>{{$contact->message}}</td>
 
                       <td style="text-align: center">
-                        <a href="{{url('admin/editecategory/'.$category->id)}}" class="btn btn-primary" style="display:inline-block;"><i class="nav-icon fas fa-edit"></i></a>
+                        <a href="{{url('admin/detailcontact/'.$contact->id)}}" class="btn btn-primary" style="display:inline-block;"><i class="nav-icon fas fa-edit"></i></a>
 
 
-                       <a href="{{url('/admin/deletecategory/'.$category->id)}}" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
+                       <a href="{{url('/admin/deletecontact/'.$contact->id)}}" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
                         {{--<form action="{{url('admin/deletecategory/'.$category->id)}}" method="POST" style="display:inline-block;">
                           @csrf
                           @method("DELETE")

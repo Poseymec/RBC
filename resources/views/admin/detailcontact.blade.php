@@ -1,9 +1,10 @@
+@extends('admin_layout.master')
+@section('titre')
 
-@extends('layouts.admin')
+    rainbow_contact
 
-@section('title', 'Détail du message de contact')
-
-@section('content')
+@endsection
+@section('contenu')
 <div class="max-w-4xl mx-auto p-4">
     <div class="flex items-center gap-4 mb-6">
         <a

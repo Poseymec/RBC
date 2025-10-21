@@ -19,6 +19,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NewsletterController;
 //use Laravel\Fortify\Http\Middleware\EnsureEmailIsVerified;
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +51,7 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
         //Route::post('/client/saveAvis',[AvisController::class,'saveAvis']);
         //route vers aviscontroller
-    
+
 
 
 
@@ -160,6 +162,14 @@ Route::put('/admin/activateAvi/{id}',[AvisController::class,'activateAvi']);
 Route::delete('/admin/deleteAvi/{id}',[AvisController::class,'deleteAvi']);
 
 
+// router vers contact et newsletter
+Route::get('/admin/contact',[AdminController::class,'contact']);
+Route::get('/admin/newsletter',[AdminController::class,'newsletter']);
+Route::get('/admin/deletecontact/{id}',[AdminController::class,'deletecontact']);
+Route::delete('/admin/yesdeletecontact/{id}',[AdminController::class,'yesdeletecontact']);
+Route::get('/admin/deletenewsletter/{id}',[AdminController::class,'deletenewsletter']);
+Route::delete('/admin/yesdeletenewsletter/{id}',[AdminController::class,'yesdeletenewsletter']);
+
 
 
 
@@ -167,3 +177,8 @@ Route::delete('/admin/deleteAvi/{id}',[AvisController::class,'deleteAvi']);
 //require __DIR__.'/vendor/laravel/fortify/routes/routes.php';
 
 
+// Formulaire de contact
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Formulaire de newsletter
+Route::post('/newsletter', [NewsLetterController::class, 'store'])->name('newsletter.store');

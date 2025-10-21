@@ -138,7 +138,7 @@ class AdminController extends Controller
     /**--------------------------------------------------------------------------------------------------- ------------- */
 
     public function contact(){
-        $contact= Contact::get();
+        $contacts= Contact::get();
         return view('admin.contact');
     }
 

@@ -21,6 +21,7 @@ class ContactController extends Controller
     }
 
     // Stocke un nouveau contact
+ 
     public function store(Request $request)
     {
         $request->validate([
@@ -36,11 +37,18 @@ class ContactController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'message' => $request->message,
-                'status' => 'unread', // statut initial
+                'status' => 'unread',
             ]);
+
+            if ($request->ajax()) {
+                return response()->json(['success' => 'Message envoyé avec succès !']);
+            }
 
             return redirect()->back()->with('success', 'Contact créé avec succès');
         } catch (\Exception $e) {
+            if ($request->ajax()) {
+                return response()->json(['message' => 'Erreur lors de l’envoi.'], 500);
+            }
             return redirect()->back()->with('error', 'Erreur lors de la création : ' . $e->getMessage());
         }
     }

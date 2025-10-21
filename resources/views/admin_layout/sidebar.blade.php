@@ -202,6 +202,31 @@
           @endauth
           @if (Route::has('login'))
             @auth
+          <li class="nav-item has-treeview   {{request()->is('admin/contact' )||request()->is( 'admin/newsletter')? 'menu-open' : ''}}">
+            <a href="#" class="nav-link  {{request()->is('admin/contact' )||request()->is( 'admin/newsletter')? 'active' : ''}}">
+              <i class="nav-icon fas fa-folder"></i>
+              <p>
+                Contact & Newsletter
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/admin/contact')}}" class="nav-link {{request()->is('admin/contact')? 'active' : ''}}">
+                  <i class="far fa-file nav-icon"></i>
+                  <p>Contact</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/admin/newsletter')}}"class="nav-link {{request()->is('admin/newsletter')? 'active' : ''}}">
+                  <i class="far fa-file nav-icon"></i>
+                  <p>Newsletter</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
           <li >
             <form action="{{route('logout')}}" method="POST">
