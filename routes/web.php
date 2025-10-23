@@ -47,7 +47,7 @@ use App\Http\Controllers\NewsletterController;
         Route::get('/productdetail/{id}',[ClientController::class , 'productdetail']);
         Route::get('/rechercheclient',[ClientController::class , 'rechercheclient']);
         //Route::get('/notationproduit/{id}',[ClientController::class,'notationproduit']);
-        //Route::get('/commandeproduit/{id}',[CommandeController::class,'commandeproduit']);
+        Route::get('/commandeproduit/{id}',[CommandeController::class,'commandeproduit']);
 
         //Route::post('/client/saveAvis',[AvisController::class,'saveAvis']);
         //route vers aviscontroller
@@ -138,12 +138,13 @@ Route::middleware(['auth.session','password.confirm','CheckRoles:Admin,super-Adm
     Route::post('/admin/saveproduct/',[ProductController::class,'saveproduct']);
     Route::get('/admin/editeproduct/{id}',[ProductController::class,'editeproduct']);
     Route::put('/admin/unactivateproduct/{id}',[ProductController::class,'unactivateproduct']);
-Route::put('/admin/activateproduct/{id}',[ProductController::class,'activateproduct']);
-Route::get('/admin/deleteproduct/{id}',[ProductController::class,'deleteproduct']);
-Route::delete('/admin/yesdeleteproduct/{id}',[ProductController::class,'yesdeleteproduct']);
-Route::get('/admin/deleteproductimage/{id}',[ProductController::class,'deleteproductimage']);
-Route::delete('/admin/yesdeleteproductimage/{id}',[ProductController::class,'yesdeleteproductimage']);
-Route::put('admin/updateproduct/{id}',[ProductController::class,'updateproduct']);
+    Route::put('/admin/activateproduct/{id}',[ProductController::class,'activateproduct']);
+    Route::get('/admin/deleteproduct/{id}',[ProductController::class,'deleteproduct']);
+    Route::delete('/admin/yesdeleteproduct/{id}',[ProductController::class,'yesdeleteproduct']);
+    Route::get('/admin/deleteproductimage/{id}',[ProductController::class,'deleteproductimage']);
+    Route::delete('/admin/yesdeleteproductimage/{id}',[ProductController::class,'yesdeleteproductimage']);
+    Route::put('admin/updateproduct/{id}',[ProductController::class,'updateproduct']);
+    Route::get('/admin/detailproduit/{id}', [AdminController::class, 'detailproduit']);
 
 
 //route vers les promo controller
@@ -164,6 +165,7 @@ Route::delete('/admin/deleteAvi/{id}',[AvisController::class,'deleteAvi']);
 
 // router vers contact et newsletter
 Route::get('/admin/contact',[AdminController::class,'contact']);
+Route::get('/admin/detailcontact/{id}', [AdminController::class, 'detailcontact']);
 Route::get('/admin/newsletter',[AdminController::class,'newsletter']);
 Route::get('/admin/deletecontact/{id}',[AdminController::class,'deletecontact']);
 Route::delete('/admin/yesdeletecontact/{id}',[AdminController::class,'yesdeletecontact']);
@@ -181,4 +183,4 @@ Route::delete('/admin/yesdeletenewsletter/{id}',[AdminController::class,'yesdele
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Formulaire de newsletter
-Route::post('/newsletter', [NewsLetterController::class, 'store'])->name('newsletter.store');
+Route::post('/newsletters', [NewsLetterController::class, 'store'])->name('newsletter.store');

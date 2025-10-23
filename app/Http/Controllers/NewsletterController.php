@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Newsletter;
 
 
-class NewsLetterController extends Controller
+class NewsletterController extends Controller
 {
     // Affiche toutes les Newsletter
     public function index()

@@ -10,12 +10,12 @@
 @section('contenu')
   <main class="pt-5 mt-10 pb-20 px-4 md:px-8">
     <!-- Section Héro -->
-    <section class="max-w-4xl mx-auto text-center mb-24">
+    <section id="home" class="max-w-4xl mx-auto text-center mb-24">
       <div class="bg-transparent backdrop-blur-sm rounded-2xl px-6 py-12">
         <!-- Logo avec animation flottante -->
         <div class="mb-4 floating-div">
           <img
-           src="{{asset('logo/logo7.png')}}" 
+           src="{{asset('logo/logo7.png')}}"
             alt="Logo Rainbow Business"
             class="mx-auto h-32 md:h-40 lg:h-48"
           />
@@ -86,13 +86,13 @@
         </button>
     </div>
     </section>
-    <section>
+    <section id="about">
          @include('client.about')
     </section>
-    <section>
+    <section id="services">
             @include('client.services')
     </section>
-        <section>
+        <section id="contact">
             @include('client.contact')
     </section>
   </main>

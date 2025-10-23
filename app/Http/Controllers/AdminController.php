@@ -83,7 +83,11 @@ class AdminController extends Controller
         return view('admin.product')->with('categories',$categories);
     }
 
-
+    public function detailproduit($id)
+    {
+        $product = Product::with('categories')->findOrFail($id);
+        return view('admin.detailproduit', compact('product'));
+    }
     /*------------------------------------------------------------------------------------------------------- */
     public function addpromo(){
         return view('admin.addpromo');
@@ -139,13 +143,18 @@ class AdminController extends Controller
 
     public function contact(){
         $contacts= Contact::get();
-        return view('admin.contact');
+        return view('admin.contact', compact('contacts'));
     }
 
+    public function detailcontact($id)
+    {
+        $contact = Contact::findOrFail($id);
+        return view('admin.detailcontact', compact('contact'));
+    }
     /**--------------------------------------------------------------------------------------------------- ------------- */
 
-    public function NewsLetter(){
-        $newsletters = Newsletter::get();
-        return view('admin.newsletter');
+    public function Newsletter(){
+        $letters = Newsletter::get();
+        return view('admin.newsletter', compact('letters'));
     }
 }

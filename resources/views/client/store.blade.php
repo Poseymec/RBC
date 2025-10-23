@@ -1,4 +1,5 @@
 @extends('client_layout.master')
+
 @section('titre')
 Produit
 @endsection
@@ -69,7 +70,7 @@ Produit
 
     <!-- Colonne droite : Produits -->
     <div class="lg:col-span-3">
-      <!-- Barre de tri (désactivée pour la pagination client, mais conservée visuellement) -->
+      <!-- Barre de tri (désactivée mais conservée) -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <p class="text-sm text-gray-600 dark:text-gray-400">
           {{ $categories->sum(fn($c) => $c->products_count) }} produits trouvés
@@ -98,44 +99,50 @@ Produit
           @if ($categorie->products_count > 0)
             @foreach ($categorie->products as $product)
               <div
-                class="product-card bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-4"
+                class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-4 border border-gray-200 dark:border-gray-700"
                 data-category="{{ $categorie->id }}"
                 data-name="{{ strtolower($product->product_name) }}"
               >
-                <div class="aspect-square bg-gray-300 dark:bg-gray-700 rounded-lg mb-4 overflow-hidden">
-                  <img
-                    src="{{ asset('storage/product_cover/' . $product->cover) }}"
-                    alt="{{ $product->product_name }}"
-                    class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
-                  />
+                <!-- Image -->
+                <div class="aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg mb-4 overflow-hidden">
+                  @if($product->cover)
+                    <img
+                      src="{{ asset('storage/product_cover/' . $product->cover) }}"
+                      alt="{{ $product->product_name }}"
+                      class="w-full h-full object-cover"
+                    />
+                  @else
+                    <div class="w-full h-full flex items-center justify-center text-gray-500">
+                      Pas d'image
+                    </div>
+                  @endif
                 </div>
 
-                <h3 class="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                <!-- Nom -->
+                <h3 class="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-1">
                   {{ $product->product_name }}
                 </h3>
 
-                <div class="flex items-center justify-between">
-                  <span class="text-lg font-bold text-[#E8192C]">
-                    {{ number_format($product->product_promo, 0, ',', ' ') }} FCFA
-                  </span>
+                <!-- Description -->
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                  {{ $product->product_description ?? 'Aucune description.' }}
+                </p>
+
+                <!-- Boutons -->
+                <div class="flex gap-2">
                   <a
                     href="{{ url('/productdetail/' . $product->id) }}"
-                    class="px-3 py-1 text-sm bg-[#E8192C] hover:bg-red-700 text-white rounded-lg transition-colors"
+                    class="flex-1 px-3 py-2 text-sm font-medium text-center bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors"
                   >
                     Voir
                   </a>
+                  <a
+                    href="{{url('/commandeproduit/'.$product->id)}}"
+                    class="flex-1 px-3 py-2 text-sm font-medium text-center bg-[#E8192C] hover:bg-red-700 text-white rounded-lg transition-colors"
+                  >
+                    Commander
+                  </a>
                 </div>
-
-                @if ($product->product_reduction > 0)
-                  <div class="mt-2">
-                    <span class="text-sm text-gray-600 dark:text-gray-400">
-                      <del>{{ number_format($product->product_price, 0, ',', ' ') }} FCFA</del>
-                    </span>
-                    <span class="ml-2 text-sm font-semibold text-green-600 dark:text-green-400">
-                      -{{ $product->product_reduction }}%
-                    </span>
-                  </div>
-                @endif
               </div>
             @endforeach
           @endif
@@ -164,9 +171,15 @@ Produit
 html.dark {
   color-scheme: dark;
 }
-.line-clamp-2 {
+.line-clamp-1 {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -181,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const noResults = document.getElementById('noResults');
   const paginationEl = document.getElementById('pagination');
 
-  // Récupère toutes les cartes produits
   const allProductCards = Array.from(document.querySelectorAll('.product-card'));
   const productsPerPage = 6;
   let currentPage = 1;
@@ -195,14 +207,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
-  // Applique les filtres ET la pagination
   function applyFiltersAndPagination() {
     const query = (searchInput.value || '').trim().toLowerCase();
     const selectedCategories = Array.from(checkboxes)
       .filter(cb => cb.checked)
       .map(cb => cb.value);
 
-    // Filtre les produits
     filteredProducts = allProductCards.filter(card => {
       const name = (card.dataset.name || '').toLowerCase();
       const category = String(card.dataset.category || '');
@@ -221,14 +231,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const end = start + productsPerPage;
     const pageProducts = filteredProducts.slice(start, end);
 
-    // Cache toutes les cartes
     allProductCards.forEach(card => card.classList.add('hidden'));
 
     if (pageProducts.length === 0) {
       noResults.classList.remove('hidden');
     } else {
       noResults.classList.add('hidden');
-      // Affiche uniquement celles de la page courante
       pageProducts.forEach(card => card.classList.remove('hidden'));
     }
   }
@@ -239,7 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (totalPages <= 1) return;
 
-    // Bouton "Précédent"
     if (currentPage > 1) {
       const prevBtn = document.createElement('button');
       prevBtn.textContent = '«';
@@ -252,12 +259,9 @@ document.addEventListener('DOMContentLoaded', () => {
       paginationEl.appendChild(prevBtn);
     }
 
-    // Pages numérotées (max 5 autour de la page courante)
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, startPage + 4);
-    if (endPage - startPage < 4) {
-      startPage = Math.max(1, endPage - 4);
-    }
+    if (endPage - startPage < 4) startPage = Math.max(1, endPage - 4);
 
     for (let i = startPage; i <= endPage; i++) {
       const pageBtn = document.createElement('button');
@@ -275,7 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
       paginationEl.appendChild(pageBtn);
     }
 
-    // Bouton "Suivant"
     if (currentPage < totalPages) {
       const nextBtn = document.createElement('button');
       nextBtn.textContent = '»';
@@ -289,7 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Événements
   const debouncedApply = debounce(applyFiltersAndPagination, 200);
   searchInput.addEventListener('input', debouncedApply);
   checkboxes.forEach(cb => cb.addEventListener('change', applyFiltersAndPagination));
@@ -298,11 +300,8 @@ document.addEventListener('DOMContentLoaded', () => {
     checkboxes.forEach(cb => cb.checked = false);
     searchInput.value = '';
     applyFiltersAndPagination();
-    const firstCard = document.querySelector('.product-card');
-    if (firstCard) firstCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  // Initialisation
   applyFiltersAndPagination();
 });
 </script>
