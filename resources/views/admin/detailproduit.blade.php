@@ -16,8 +16,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Accueil</a></li>
-              <li class="breadcrumb-item"><a href="{{ url('/admin/product') }}">Produits</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Accueil</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('admin.product') }}">Produits</a></li>
               <li class="breadcrumb-item active">Détail</li>
             </ol>
           </div>
@@ -34,7 +34,7 @@
               <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">{{ $product->product_name }}</h3>
                 <div class="card-tools">
-                  <a href="{{ url('/admin/product') }}" class="btn btn-sm btn-secondary">
+                  <a href="{{ route('admin.product') }}" class="btn btn-sm btn-secondary">
                     <i class="fas fa-arrow-left"></i> Retour à la liste
                   </a>
                 </div>
@@ -86,7 +86,7 @@
                     @endif
                     <tr>
                       <th>Marque</th>
-                      <td>{{ $product->product_brand ?? '—' }}</td>
+                      <td>{{ $product->product_brand === 'Nouveau' ? 'Nouveau' : '—' }}</td>
                     </tr>
                     <tr>
                       <th>Status</th>
@@ -105,7 +105,7 @@
                   </tbody>
                 </table>
 
-                <!-- Description complète (largeur pleine) -->
+                <!-- Description complète -->
                 <div class="mb-4">
                   <h5 class="font-weight-bold mb-2">Description :</h5>
                   <div class="p-3 bg-light rounded" style="white-space: pre-wrap; word-break: break-word; min-height: 60px;">
@@ -113,7 +113,7 @@
                   </div>
                 </div>
 
-                <!-- Galerie d'images supplémentaires (si elles existent) -->
+                <!-- Galerie d'images supplémentaires -->
                 @if($product->product_images && $product->product_images->isNotEmpty())
                   <div class="mb-4">
                     <h5 class="font-weight-bold mb-2">Images supplémentaires :</h5>
@@ -132,17 +132,14 @@
               </div>
 
               <div class="card-footer text-right">
-                <a href="{{ url('/admin/editeproduct/' . $product->id) }}" class="btn btn-primary">
+                <a href="{{ route('admin.editeproduct', $product->id) }}" class="btn btn-primary">
                   <i class="fas fa-edit"></i> Modifier
                 </a>
 
-                <form action="{{ url('/admin/deleteproduct/' . $product->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer ce produit ?');">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="btn btn-danger">
-                    <i class="fas fa-trash"></i> Supprimer
-                  </button>
-                </form>
+                <!-- 🔥 Bouton de suppression avec SweetAlert2 -->
+                <button type="button" class="btn btn-danger" id="delete-product-btn">
+                  <i class="fas fa-trash"></i> Supprimer
+                </button>
               </div>
             </div>
           </div>
@@ -150,4 +147,46 @@
       </div>
     </section>
   </div>
+@endsection
+
+@section('script')
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    document.getElementById('delete-product-btn').addEventListener('click', function () {
+      Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        html: "La suppression supprimera <b>toutes les images</b> associées à ce produit.<br>Vous ne pourrez pas revenir en arrière !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Créer un formulaire virtuel ou utiliser fetch
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = "{{ route('admin.yesdeleteproduct', $product->id) }}";
+
+          const csrf = document.createElement('input');
+          csrf.type = 'hidden';
+          csrf.name = '_token';
+          csrf.value = '{{ csrf_token() }}';
+
+          const method = document.createElement('input');
+          method.type = 'hidden';
+          method.name = '_method';
+          method.value = 'DELETE';
+
+          form.appendChild(csrf);
+          form.appendChild(method);
+          document.body.appendChild(form);
+          form.submit();
+        }
+      });
+    });
+  </script>
 @endsection

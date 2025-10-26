@@ -1,141 +1,166 @@
 @extends('admin_layout.master')
 @section('titre')
-
-    NLelectro_categories
-    
+   Rainbow-business_categories
 @endsection
+
 @section('contenu')
-      <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Categories</h1>
-            <p>  @auth
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Catégories</h1>
+          <p>
+            @auth
               {{ auth()->user()->name }}
               {{ auth()->user()->getRoleNames() }}
               {{ auth()->user()->getPermissionNames() }}
-                @endauth
+            @endauth
           </p>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{url('/admin')}}">Accueil</a></li>
-              <li class="breadcrumb-item active">Categories</li>
-            </ol>
-          </div>
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Accueil</a></li>
+            <li class="breadcrumb-item active">Catégories</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Toutes les Categories</h3>
-              </div>
-              <!-- /.card-header -->
-              @if (Session::has('status'))
-                <br>
-                <div class="alert alert-success"> {{Session::get('status')}}</div>
-             @endif
-              <input type="hidden" {{$increment=1}}>
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Toutes les Catégories</h3>
+            </div>
+
+            @if (Session::has('status'))
+              <div class="alert alert-success m-3">{{ Session::get('status') }}</div>
+            @endif
+
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
                   <tr>
                     <th>Num.</th>
-                    <th>Category Name</th>
-                    <th>Quantité</th>
+                    <th>Nom de la catégorie</th>
+                    <th>Quantité de produits</th>
                     <th>Actions</th>
                   </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($categories as $category)   
+                </thead>
+                <tbody>
+                  @foreach ($categories as $index => $category)
                     <tr>
-                      <td>{{$increment}}</td>
-                      <td>{{$category->category_name}}</td>
-                     
-                          <td>{{$category->products_count}}</td>
-                    
+                      <td>{{ $index + 1 }}</td>
+                      <td>{{ $category->category_name }}</td>
+                      <td>{{ $category->products_count }}</td>
                       <td style="text-align: center">
-                        <a href="{{url('admin/editecategory/'.$category->id)}}" class="btn btn-primary" style="display:inline-block;"><i class="nav-icon fas fa-edit"></i></a>
-                       
+                        <a href="{{ route('admin.editecategory', $category->id) }}" class="btn btn-primary btn-sm" title="Modifier">
+                          <i class="fas fa-edit"></i>
+                        </a>
 
-                       <a href="{{url('/admin/deletecategory/'.$category->id)}}" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
-                        {{--<form action="{{url('admin/deletecategory/'.$category->id)}}" method="POST" style="display:inline-block;">
-                          @csrf
-                          @method("DELETE")
-                          <button type="submit" class="btn btn-danger"  > <i class="nav-icon fas fa-trash"></i></button>
-
-                        </form>--}}
-
+                        <button type="button"
+                                class="btn btn-danger btn-sm delete-category"
+                                data-category-id="{{ $category->id }}"
+                                title="Supprimer">
+                          <i class="fas fa-trash"></i>
+                        </button>
                       </td>
                     </tr>
-                    <input type="hidden" {{$increment++}}>
-                    @endforeach
-                  </tbody>
-                  <tfoot>
+                  @endforeach
+                </tbody>
+                <tfoot>
                   <tr>
                     <th>Num.</th>
-                    <th>Category Name</th>
-                    <th>Quantité</th>
+                    <th>Nom de la catégorie</th>
+                    <th>Quantité de produits</th>
                     <th>Actions</th>
                   </tr>
-                  </tfoot>
-                </table>
-              
-              </div>
-              <!-- /.card-body -->
+                </tfoot>
+              </table>
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+    </div>
+  </section>
+</div>
 @endsection
-@section('style')
 
- <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
- <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    
+@section('style')
+<link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 @endsection
 
 @section('script')
-<!-- DataTables -->
-<script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-<!-- AdminLTE App -->
+<script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-      });
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+      }
+    });
+
+    // 🔥 Suppression avec SweetAlert2
+    $(document).on('click', '.delete-category', function () {
+      const categoryId = $(this).data('category-id');
+      const row = $(this).closest('tr');
+
+      Swal.fire({
+        title: 'Supprimer cette catégorie ?',
+        text: "Vous ne pourrez pas revenir en arrière !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: `/admin/category/${categoryId}`,
+            type: 'DELETE',
+            data: {
+              _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Supprimé !',
+                text: response.success,
+                timer: 1500,
+                showConfirmButton: false
+              });
+              row.fadeOut(400, function() { $(this).remove(); });
+            },
+            error: function (xhr) {
+              let message = 'Une erreur est survenue.';
+              if (xhr.responseJSON?.error) {
+                message = xhr.responseJSON.error;
+              }
+              Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: message,
+              });
+            }
+          });
+        }
       });
     });
-  </script>
-    
+  });
+</script>
 @endsection
-

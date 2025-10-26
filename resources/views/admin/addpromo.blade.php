@@ -1,12 +1,12 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro ajouter_une_promotion
-    
+   Rainbow-business ajouter_une_promotion
+
 @endsection
 @section('contenu')
 
- 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -102,7 +102,7 @@
                 </div>
               </form>
             </div>
-            <!-- /.card --> 
+            <!-- /.card -->
             </div>
           <!--/.col (left) -->
           <!-- right column -->

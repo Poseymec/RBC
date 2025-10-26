@@ -1,12 +1,12 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro assignations-role
-    
+   Rainbow-business assignations-role
+
 @endsection
 @section('contenu')
 
-    
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -29,7 +29,7 @@
     <div class="alert alert-danger">
       {{session('error')}}
     </div>
-      
+
     @endif
     @if (Session::has('status'))
     <br>
@@ -48,9 +48,9 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-            
+
               <form id="quickForm"  action="{{url('/admin/saveassignment')}}" method="POST" enctype="multipart/form-data">
-             
+
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -68,21 +68,21 @@
                         <div>
                             <input type="checkbox" name="permissions[]" value="{{$permission->name}}">
                             <label for="">{{$permission->name}}</label>
-                        </div> 
+                        </div>
                         @endforeach
 
                     </div>
-                 
-                    
-                  
+
+
+
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <!-- <button type="submit" class="btn btn-success">Submit</button> -->
                   <input type="submit" class="btn btn-success" value="Sauvegarder">
-                  
+
               </form>
-          
+
             </div>
             <!-- /.card -->
             </div>

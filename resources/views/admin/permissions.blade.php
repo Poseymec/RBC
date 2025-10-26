@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro Ajouter_une_permission
-    
+   Rainbow-business Ajouter_une_permission
+
 @endsection
 @section('contenu')
 
@@ -28,7 +28,7 @@
     <div class="alert alert-danger">
       {{session('error')}}
     </div>
-      
+
     @endif
 
     <!-- Main content -->
@@ -106,27 +106,27 @@
                       <td>{{$increment}}</td>
                       <td>{{$permission->name}}</td>
                       <td style="text-align: center">
-                        
+
                         <a href="{{url('admin/editepermission/'.$permission->id)}}" class="btn btn-primary" style="display:inline-block;"><i class="nav-icon fas fa-edit"></i></a>
                         <a href="{{url('/admin/deletepermission/'.$permission->id)}}" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
                         {{--<form action="{{url('admin/deletecategory/'.$category->id)}}" method="POST" style="display:inline-block;">
                           @csrf
                           @method("DELETE")
                           <button type="submit" class="btn btn-danger"  > <i class="nav-icon fas fa-trash"></i></button>
-  
+
                         </form> --}}
-  
+
                       </td>
                     </tr>
                     <input type="hidden" {{$increment++}}>
                     @endforeach
-              
+
                   </tbody>
                   <tfoot>
                   <tr>
                     <th>Num.</th>
                     <th>Permission</th>
-                
+
                     <th>Actions</th>
                   </tr>
                   </tfoot>
@@ -147,12 +147,12 @@
   <!-- /.content-wrapper -->
   @endsection
   @section('style')
-  
+
   <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    
+
   @endsection
-  
+
   @section('script')
   <!-- DataTables -->
   <script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -177,5 +177,5 @@
       });
     });
   </script>
-    
+
   @endsection

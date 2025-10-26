@@ -1,12 +1,12 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro modifier_promotion
-    
+   Rainbow-business modifier_promotion
+
 @endsection
 @section('contenu')
 
- 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -52,9 +52,9 @@
                 <div class="alert alert-success"> {{Session::get('status')}}</div>
             @endif
               <!-- form start -->
-            
-                  
-           
+
+
+
               <form  action="{{url('/admin/updatepromo/'.$promo->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -105,9 +105,9 @@
                   <input type="submit" class="btn btn-warning" value="Modifier" >
                 </div>
               </form>
-           
+
             </div>
-            <!-- /.card --> 
+            <!-- /.card -->
             </div>
           <!--/.col (left) -->
           <!-- right column -->

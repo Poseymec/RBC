@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro avis
-    
+   Rainbow-business avis
+
 @endsection
 @section('contenu')
 
@@ -51,14 +51,14 @@
                       <th>Avis</th>
                       <th>Etoiles</th>
                       <th>Actions</th>
-                      
-                      
+
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($avis as $avi)
                     <tr>
-                    
+
                         <td>{{$increment}}</td>
                         <td>{{$avi->productName}}</td>
                         <td>{{$avi->emailAvis}}</td>
@@ -66,7 +66,7 @@
                         <td>{{$avi->avis}}</td>
                         <td>{{$avi->rating}}</td>
                         <td  style=" text-align:center">
-                        @if ($avi->status==1)   
+                        @if ($avi->status==1)
                         <form action="{{url('/admin/activateAvi/'.$avi->id)}}" method="POST" style="display:inline-block;">
                           @csrf
                           @method('PUT')
@@ -86,14 +86,14 @@
                         <button type="submit" class="btn btn-danger" > <i class="nav-icon fas fa-trash"></i></button>
                       </form>
                         </td>
-                       
-                       
+
+
                     </tr>
                     <input type="hidden" {{$increment++}}>
                     @endforeach
                   </tbody>
                   <tfoot>
-                  <tr>   
+                  <tr>
                     <th>Num</th>
                     <th>Nom du produit</th>
                     <th>Email utilisateur </th>
@@ -101,7 +101,7 @@
                     <th>Avis</th>
                     <th>Etoiles</th>
                     <th>Actions</th>
-                 
+
                   </tr>
                   </tfoot>
                 </table>
@@ -125,7 +125,7 @@
 
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    
+
 @endsection
 
 @section('script')
@@ -152,5 +152,5 @@
       });
     });
   </script>
-    
+
 @endsection

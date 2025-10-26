@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro-supprimer-slider
-    
+   Rainbow-business-supprimer-slider
+
 @endsection
 
 @section('contenu')
@@ -27,23 +27,23 @@
 
     <div class="container " style="text-align: center">
       <div >
-       
-            
-    
+
+
+
         <p class="alert alert-warning" style="background-color:red; color:white;">voulez vous vraiment supprimer ce slider?</p>
-      
+
         <form action="{{url('/admin/yesdeleteslider/'.$slider->id)}}" method="POST" style="display:inline-block;">
         @csrf
         @method("DELETE")
-          <div class="form-actions"> 
+          <div class="form-actions">
 
               <button type="submit" class="btn btn-danger" > Oui</button>
         </form>
-        <a href="{{url('/admin/slider')}}" class="btn btn-primary" >Non</a> 
+        <a href="{{url('/admin/slider')}}" class="btn btn-primary" >Non</a>
       </div>
-   
+
     </div>
-           
+
 </div>
 </div>
 @endsection
@@ -51,7 +51,7 @@
 
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    
+
 @endsection
 
 @section('script')
@@ -78,5 +78,5 @@
       });
     });
   </script>
-    
+
 @endsection

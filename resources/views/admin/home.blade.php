@@ -1,7 +1,7 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro_Dashboard
+   Rainbow-business_Dashboard
 
 @endsection
 

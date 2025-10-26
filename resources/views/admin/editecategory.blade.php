@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro_modifier_categorie
-    
+   Rainbow-business_modifier_categorie
+
 @endsection
 @section('contenu')
 
@@ -73,5 +73,5 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-    
+
 @endsection

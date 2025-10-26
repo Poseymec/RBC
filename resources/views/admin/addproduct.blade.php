@@ -1,12 +1,12 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro ajouter_un_produits
-    
+   Rainbow-business ajouter_un_produits
+
 @endsection
 @section('contenu')
 
-    
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -51,9 +51,9 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-            
+
               <form id="quickForm"  action="{{url('/admin/saveproduct')}}" method="POST" enctype="multipart/form-data">
-             
+
                 @csrf
                 <div class="card-body">
                   <div class="form-group">
@@ -87,10 +87,10 @@
                         <option>{{$category->category_name}}</option>
                         @endforeach
                       </select>
-                      
+
                     </div>
                     <!-- <input type="text" name="product_description" class="form-control" id="exampleInputEmail1" placeholder="Enter slider description" required>-->
-                   
+
                     <label for="exampleInputFile">Image principale</label>
                   <div class="input-group">
                     <div class="custom-file">
@@ -116,9 +116,9 @@
                 <div class="card-footer">
                   <!-- <button type="submit" class="btn btn-success">Submit</button> -->
                   <input type="submit" class="btn btn-success" value="Sauvegarder">
-                  
+
               </form>
-          
+
             </div>
             <!-- /.card -->
             </div>

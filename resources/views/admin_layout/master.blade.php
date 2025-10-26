@@ -19,7 +19,7 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="{{asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- JQVMap -->
-   <link rel="stylesheet" href="{{asset('Frontend/css/style.css')}}"/>
+  <!-- DataTables -->
    @yield('style')
 
 
@@ -130,7 +130,6 @@ $.widget.bridge('uibutton', $.ui.button)
 
   });
 </script>
-
 
 </body>
 </html>

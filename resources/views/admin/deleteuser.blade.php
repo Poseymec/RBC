@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro_supprimer-utilisateur
-    
+   Rainbow-business_supprimer-utilisateur
+
 @endsection
 
 @section('contenu')
@@ -31,11 +31,11 @@
           <form action="{{url('/admin/yesdeleteuser/'.$user->id)}}" method="POST" style="display:inline-block;">
             @csrf
             @method("DELETE")
-            <div class="form-actions"> 
+            <div class="form-actions">
               <button type="submit" class="btn btn-danger" > Oui</button>
             </div>
           </form>
-          <a href="{{url('/admin/userregister')}}" class="btn btn-primary" >Non</a> 
+          <a href="{{url('/admin/userregister')}}" class="btn btn-primary" >Non</a>
         </div>
     </div>
 </div>
@@ -44,7 +44,7 @@
 
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    
+
 @endsection
 
 @section('script')
@@ -71,5 +71,5 @@
       });
     });
   </script>
-    
+
 @endsection

@@ -134,7 +134,7 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview   {{request()->is('admin/addpromo' )||request()->is( 'admin/promo')? 'menu-open' : ''}}">
+          {{--<li class="nav-item has-treeview   {{request()->is('admin/addpromo' )||request()->is( 'admin/promo')? 'menu-open' : ''}}">
             <a href="#" class="nav-link  {{request()->is('admin/addpromo' )||request()->is( 'admin/promo')? 'active' : ''}}">
               <i class="nav-icon fas fa-folder"></i>
               <p>
@@ -158,7 +158,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li>--}}
 
 
           @auth

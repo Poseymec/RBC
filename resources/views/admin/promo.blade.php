@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro promotions
-    
+   Rainbow-business promotions
+
 @endsection
 @section('contenu')
 
@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
                     @foreach ($promos as $promo)
-                    
+
                     <tr>
                     <td>{{$increment}}</td>
                     <td>{{$promo->titre}}</td>
@@ -79,15 +79,15 @@
                         <button type="submit" class="btn btn-primary"  > <i class="nav-icon fas fa-eye"></i></button>
                        {{--- <a href="#" class="btn btn-success">désactiver</a>--}}
                       </form>
-                          
+
                       @else
                       <form action="{{url('/admin/activatepromo/'.$promo->id)}}" method="POST" style="display:inline-block;">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn btn-warning" > <i class="nav-icon fas fa-eye-slash"></i></button>
-                      
+
                       </form>
-                     
+
                       @endif
                       <a href="{{url('/admin/editepromo/'.$promo->id)}}" class="btn btn-primary" style="display:inline-block;"><i class="nav-icon fas fa-edit"></i></a>
 
@@ -101,7 +101,7 @@
                       <a href="{{url('/admin/deletepromo/'.$promo->id)}}" id="delete" class="btn btn-danger"  style="display:inline-block;"><i class="nav-icon fas fa-trash"></i></a>
                      {{-- <a href="#" class="btn btn-success">Désactiver</a>
                       <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>--}}
-                      
+
                     </td>
                   </tr>
                   <input type="hidden" {{$increment++}}>
@@ -141,7 +141,7 @@
 
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    
+
 @endsection
 
 @section('script')
@@ -168,5 +168,5 @@
       });
     });
   </script>
-    
+
 @endsection

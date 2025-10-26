@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro_supprimer-categorie
-    
+   Rainbow-business_supprimer-categorie
+
 @endsection
 
 @section('contenu')
@@ -27,18 +27,18 @@
 
     <div class="container " style="text-align: center">
         <div >
-                
+
             <p class="alert alert-warning" style="background-color:red; color:white;">voulez vous vraiment supprimer la categorie: <strong> {{$category->category_name}}</strong>?</p>
-                
+
             <form action="{{url('/admin/yesdeletecategory/'.$category->id)}}" method="POST" style="display:inline-block;">
                 @csrf
                 @method("DELETE")
-                <div class="form-actions"> 
+                <div class="form-actions">
                   <button type="submit" class="btn btn-danger" > Oui</button>
                 </div>
             </form>
-            <a href="{{url('/admin/category')}}" class="btn btn-primary" >Non</a> 
-          
+            <a href="{{url('/admin/category')}}" class="btn btn-primary" >Non</a>
+
         </div>
     </div>
 </div>
@@ -47,7 +47,7 @@
 
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    
+
 @endsection
 
 @section('script')
@@ -74,5 +74,5 @@
       });
     });
   </script>
-    
+
 @endsection

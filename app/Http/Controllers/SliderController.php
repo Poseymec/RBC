@@ -8,114 +8,90 @@ use App\Models\Slider;
 
 class SliderController extends Controller
 {
-    //
-
-    public function saveslider(Request $request){
-
-        //validateion du formulaire
-        $this->validate($request,[
-            'description1'=>'required',
-            'description2'=>'required',
-            'image'=>'image|nullable|max:1999'
+    public function saveslider(Request $request)
+    {
+        $request->validate([
+            'description1' => 'required|string',
+            'description2' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        /*-----------traiter les images et s'assurer qu'ils n'ont pas les memes nom----------------*/
+        $file = $request->file('image');
+        $fileNameToSave = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('public/slider_images', $fileNameToSave);
 
-        //recuperer le  nom de l'image avec son extension
-        $fileNameWithExt=$request->file('image')->getClientOriginalName();
+        Slider::create([
+            'description1' => $request->input('description1'),
+            'description2' => $request->input('description2'),
+            'image' => $fileNameToSave,
+            'status' => 1,
+        ]);
 
-        //le nom de l'image sans extension
+        return back()->with('status', 'Slider enregistré avec succès.');
+    }
 
-        $fileName=pathinfo($fileNameWithExt,PATHINFO_FILENAME);
-        
+    // 🔥 Nouvelle méthode : suppression directe (AJAX compatible)
+    public function destroy($id)
+    {
+        $slider = Slider::findOrFail($id);
 
-        //recuperer l'extension de l'image
+        if (Storage::exists("public/slider_images/{$slider->image}")) {
+            Storage::delete("public/slider_images/{$slider->image}");
+        }
 
-        $fileExt=$request->file('image')->getClientOriginalExtension();
+        $slider->delete();
 
-        //creation du nom de l'image a enregistrer
+        return response()->json(['success' => 'Slider supprimé avec succès.']);
+    }
 
-        $fileNameToSave=$fileName.'_'.time().'.'.$fileExt;
-        //print($fileNameToSave);
+    public function editeslider($id)
+    {
+        $slider = Slider::findOrFail($id);
+        return view('admin.editeslider', compact('slider'));
+    }
 
-        /*-------------sauvegarder l'image ------------------*/
+    public function updateslider($id, Request $request)
+    {
+        $slider = Slider::findOrFail($id);
 
-        $path=$request->file('image')->storeAs("public/slider_images",$fileNameToSave);
+        $request->validate([
+            'description1' => 'required|string',
+            'description2' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-        $slider=new Slider();
+        if ($request->hasFile('image')) {
+            // Supprimer l’ancienne image
+            if ($slider->image && Storage::exists("public/slider_images/{$slider->image}")) {
+                Storage::delete("public/slider_images/{$slider->image}");
+            }
 
-        $slider->description1=$request->input('description1');
-        
-        $slider->description2=$request->input('description2');
+            $file = $request->file('image');
+            $fileNameToSave = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/slider_images', $fileNameToSave);
+            $slider->image = $fileNameToSave;
+        }
 
-        $slider->image=$fileNameToSave;
+        $slider->description1 = $request->input('description1');
+        $slider->description2 = $request->input('description2');
         $slider->save();
 
-        return back()->with("status","slider enregistré avec succès");
-
-
-    }
-    //--------------------------supprimer le slider------------------------------------------
-
-    public function deleteslider($id){
-        $slider=Slider::find($id);
-       /* storage::delete("public/slider_images/$slider->image");
-        $slider->delete();*/
-        return view('admin.deleteslider')->with('slider',$slider);
-        //return back()->with("status","slider suppeimé avec succès");
-    }
-    public function yesdeleteslider($id){
-        $slider=Slider::find($id);
-        storage::delete("public/slider_images/$slider->image");
-        $slider->delete();
-       
-        return redirect('admin/slider')->with('status','slider supprimé avec succès');
-
+        return redirect()->route('admin.slider')->with('status', 'Slider modifié avec succès.');
     }
 
-
-        //-------------------------modifier le slider----------------------------------------
-
-    public function editeslider($id){
-        $slider=Slider::find($id);
-        return view('admin.editeslider')->with('slider',$slider);
-    }
-
-    public function updateslider($id ,Request $request){
-        $slider=Slider::find($id);
-        $slider->description1=$request->input('description1');
-        $slider->description2=$request->input('description2');
-        if($request->file('image')){
-            $this->validate($request,[
-                'image'=>'image|nullable|max:1999'
-            ]);
-            $fileNameWithExt=$request->file('image')->getClientOriginalName();
-            $fileName=pathinfo($fileNameWithExt,PATHINFO_FILENAME);
-            $fileExt=$request->file('image')->getClientOriginalExtension();
-            $fileNameToSave=$fileName.'_'.time().'.'.$fileExt;
-            //supprimer l'ancienne image
-            storage::delete("public/slider_images/$slider->image");
-            
-            $path=$request->file('image')->storeAs("public/slider_images",$fileNameToSave);
-
-            $slider->image=$fileNameToSave;
-          
-        }
-        $slider->update();
-        return redirect('admin/slider')->with('status','slider modifié avec succès');
-    }
-
-    public function unactivateslider($id){
-        $slider=Slider::find($id);
-        $slider->status=0;
-        $slider->update();
+    public function unactivateslider($id)
+    {
+        $slider = Slider::findOrFail($id);
+        $slider->status = 0;
+        $slider->save();
         return back();
     }
 
-    public function activateslider($id){
-        $slider=Slider::find($id);
-        $slider->status=1;
-        $slider->update();
+    public function activateslider($id)
+    {
+        $slider = Slider::findOrFail($id);
+        $slider->status = 1;
+        $slider->save();
         return back();
     }
 }

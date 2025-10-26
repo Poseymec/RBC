@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro utilisateur
-    
+   Rainbow-business utilisateur
+
 @endsection
 @section('contenu')
 
@@ -28,7 +28,7 @@
     <div class="alert alert-danger">
       {{session('error')}}
     </div>
-      
+
     @endif
     <!-- Main content -->
     <section class="content">
@@ -56,14 +56,14 @@
                       <th>creation</th>
                       <th>roles</th>
                       <th>Action</th>
-                      
-                      
+
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                      
+
                       <td>{{$increment}}</td>
                       <td>{{$user->name}}</td>
                       <td>{{$user->email}}</td>
@@ -76,17 +76,17 @@
                         @else
                         <td>simple utilisateur</td>
                         @endif
-                        
-                        <td> 
+
+                        <td>
                           <a href="{{url('/admin/editeroleuser/'.$user->id)}}" class="btn btn-primary" style="display:inline-block;"><i class="nav-icon fas fa-edit"></i></a>
                           <a href="{{url('/admin/deleteuser/'.$user->id)}}" id="delete" class="btn btn-danger"  style="display:inline-block;"><i class="nav-icon fas fa-trash"></i></a></td>
-                          
+
                         </tr>
                         <input type="hidden" {{$increment++}}>
                         @endforeach
                   </tbody>
                   <tfoot>
-                  <tr>   
+                  <tr>
                     <th>Num</th>
                     <th>Nom</th>
                     <th>email </th>
@@ -94,7 +94,7 @@
                     <th>creation</th>
                     <th>roles</th>
                     <th>Action</th>
-                 
+
                   </tr>
                   </tfoot>
                 </table>
@@ -117,7 +117,7 @@
 
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
  <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    
+
 @endsection
 
 @section('script')
@@ -144,5 +144,5 @@
       });
     });
   </script>
-    
+
 @endsection

@@ -1,14 +1,14 @@
 
 
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 mt-10 rounded-3xl shadow-xl transition-colors duration-300">
-    <div class="max-w-6xl mx-auto px-4 py-12 sm:py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4 py-8 sm:py-16 md:py-15">
       <!-- Titre -->
-      <div class="text-center mb-16">
+      <div class="text-center mb-10">
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#E8192C] tracking-tight">
           Nos Services
         </h1>
         <p class="mt-6 text-2xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          Des solutions fiables pour professionnels de la santé et du commerce
+        Des solutions adaptées à tous vos besoins professionnels.
         </p>
       </div>
 
@@ -26,7 +26,7 @@
             Distribution
           </h3>
           <p class="text-gray-700 dark:text-gray-300 text-xl leading-relaxed">
-            Livraison rapide et fiable de produits pharmaceutiques et médicaux à travers le Cameroun.
+           Une large gamme de produits de qualité pour particuliers, distributeurs et entreprises.
           </p>
         </div>
 
@@ -42,7 +42,7 @@
             Approvisionnement sur mesure
           </h3>
           <p class="text-gray-700 dark:text-gray-300 text-xl leading-relaxed">
-            Commandes personnalisées selon vos besoins, avec suivi logistique et garantie de disponibilité.
+           Solutions en gros pour hôtels, restaurants, supermarchés et pharmacies.
           </p>
         </div>
 

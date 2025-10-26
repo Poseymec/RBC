@@ -28,7 +28,7 @@
 
         <!-- Description -->
         <p class="text-base md:text-xl text-gray-800 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Découvrez nos produits de qualité et notre engagement envers l’excellence.
+         Nous mettons à votre disposition une large gamme de produits de qualité allant des articles pour l’hygiène et l’entretien aux produits pratiques pour la maison et la restauration.
         </p>
 
         <!-- Bouton CTA -->

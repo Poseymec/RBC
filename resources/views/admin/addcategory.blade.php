@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro Ajouter_une_categorie
-    
+   Rainbow-business Ajouter_une_categorie
+
 @endsection
 @section('contenu')
 
@@ -81,5 +81,5 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-    
+
 @endsection

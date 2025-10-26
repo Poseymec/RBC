@@ -2,7 +2,7 @@
   <div class="max-w-6xl mx-auto px-4 py-12 sm:py-16 md:py-24">
     <div class="backdrop-blur-lg bg-white/60 dark:bg-gray-900/60 rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-200 dark:border-gray-700">
       <!-- Titre principal -->
-      <div class="text-center lg:text-left mb-10 lg:mb-12">
+      <div class="text-center lg:text-left mb-10 lg:mb-10">
         <h1 class="text-3xl sm:text-4xl font-extrabold text-[#E8192C]">
           Contactez-nous
         </h1>

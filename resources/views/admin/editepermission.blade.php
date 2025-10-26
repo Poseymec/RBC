@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro_modifier_permission
-    
+   Rainbow-business_modifier_permission
+
 @endsection
 @section('contenu')
 
@@ -73,5 +73,5 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-    
+
 @endsection

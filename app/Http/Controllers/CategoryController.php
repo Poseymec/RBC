@@ -4,54 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Product;
 
 class CategoryController extends Controller
 {
-    //
+    public function savecategory(Request $request)
+    {
+        $request->validate([
+            'category_name' => 'required|string|max:255|unique:categories,category_name',
+        ]);
 
-    public function savecategory(Request $request){
-        $category= new Category();
-        $category->category_name=$request->input('category_name');
-        
-       
+        Category::create([
+            'category_name' => $request->input('category_name'),
+        ]);
 
-
-        $category->save();
-        return back()->with('status','categorie crée avec succès');
+        return back()->with('status', 'Catégorie créée avec succès.');
     }
 
+    // 🔥 Nouvelle méthode : suppression directe (AJAX compatible)
+    public function destroy($id)
+    {
+        $category = Category::findOrFail($id);
 
-    //------------------------supprimer une categorie-------------------------
+        // Optionnel : vérifier qu'aucun produit n'est associé
+        if ($category->products()->count() > 0) {
+            return response()->json([
+                'error' => 'Impossible de supprimer cette catégorie : elle contient des produits.'
+            ], 400);
+        }
 
-    public function deletecategory($id){
-        $category =Category::find($id);
-        //$category->delete();
-
-        return view('admin.deletecategory')->with('category',$category);
-
-    }
-    public function yesdeletecategory($id){
-        $category =Category::find($id);
         $category->delete();
 
-        return redirect('admin/category')->with('status',' categorie supprimée avec succès');
-
+        return response()->json([
+            'success' => 'Catégorie supprimée avec succès.'
+        ]);
     }
 
-
-    public function editecategory($id){
-        $category= Category::find($id);
-        return view('admin.editecategory')->with('category',$category);
+    public function editecategory($id)
+    {
+        $category = Category::findOrFail($id);
+        return view('admin.editecategory', compact('category'));
     }
 
-    public function updatecategory($id, Request $request){
-        $category= Category::find($id);
-        $category->category_name=$request->input('category_name');
-        $category->update();
-        return redirect('admin/category')->with('status','categorie modifiée avec succès');
+    public function updatecategory($id, Request $request)
+    {
+        $request->validate([
+            'category_name' => 'required|string|max:255|unique:categories,category_name,' . $id,
+        ]);
 
-        
+        $category = Category::findOrFail($id);
+        $category->category_name = $request->input('category_name');
+        $category->save();
 
+        return redirect()->route('admin.category')->with('status', 'Catégorie modifiée avec succès.');
     }
 }

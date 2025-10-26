@@ -1,7 +1,7 @@
 @extends('admin_layout.master')
 
 @section('titre')
-    NLelectro produits
+   Rainbow-business produits
 @endsection
 
 @section('contenu')
@@ -16,7 +16,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Accueil</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Accueil</a></li>
               <li class="breadcrumb-item active">Produits</li>
             </ol>
           </div>
@@ -57,14 +57,13 @@
                   </thead>
                   <tbody>
                     @php $counter = 1; @endphp
-
                     @foreach ($categories as $categorie)
                       @foreach ($categorie->products as $product)
-                        <tr data-product-id="{{ $product->id }}">
+                        <tr>
                           <td>{{ $counter++ }}</td>
                           <td>
-                            <img src="{{ asset('storage/product_cover/' . $product->cover) }}"
-                                 style="height: 50px; width: 50px;"
+                            <img src="{{ $product->cover ? asset('storage/product_cover/' . $product->cover) : asset('backend/dist/img/default-product.png') }}"
+                                 style="height: 50px; width: 50px; object-fit: cover;"
                                  class="img-circle elevation-2"
                                  alt="{{ $product->product_name }}">
                           </td>
@@ -72,9 +71,9 @@
                           <td>{{ Str::limit($product->product_description, 50) }}</td>
                           <td>{{ $categorie->category_name ?? $product->product_category }}</td>
                           <td>{{ number_format($product->product_price, 0, ',', ' ') }} F</td>
-                          <td>{{ $product->product_promo ? 'Oui' : 'Non' }}</td>
-                          <td>{{ $product->product_reduction }} %</td>
-                          <td>{{ $product->product_brand ?? '—' }}</td>
+                          <td>{{ $product->product_promo ? number_format($product->product_promo, 0, ',', ' ') . ' F' : '—' }}</td>
+                          <td>{{ $product->product_reduction ? $product->product_reduction . ' %' : '—' }}</td>
+                          <td>{{ $product->product_brand === 'Nouveau' ? 'Nouveau' : '—' }}</td>
                           <td>
                             @if ($product->status == 1)
                               <span class="badge bg-success status-badge">Activé</span>
@@ -82,43 +81,41 @@
                               <span class="badge bg-warning status-badge">Désactivé</span>
                             @endif
                           </td>
-                          <td class="text-center">
-                            {{-- Voir le détail --}}
-                            <a href="{{ url('/admin/detailproduit/' . $product->id) }}"
-                               class="btn btn-info btn-sm" title="Voir le détail">
-                              <i class="fas fa-info-circle"></i>
-                            </a>
+                        <td class="text-center">
+                                {{-- Voir le détail --}}
+                                <a href="{{ route('admin.detailproduit', $product->id) }}"
+                                class="btn btn-info btn-sm" title="Voir le détail">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
 
-                            {{-- 🔁 Bouton Activer/Désactiver (AJAX) --}}
-                            <button
-                              class="btn btn-sm toggle-status-btn"
-                              data-product-id="{{ $product->id }}"
-                              data-current-status="{{ $product->status }}"
-                              title="{{ $product->status == 1 ? 'Désactiver' : 'Activer' }}"
-                            >
-                              @if ($product->status == 1)
-                                <i class="nav-icon fas fa-eye text-primary"></i>
-                              @else
-                                <i class="nav-icon fas fa-eye-slash text-warning"></i>
-                              @endif
-                            </button>
+                                {{-- Activer/Désactiver --}}
+                                <button
+                                    class="btn btn-sm toggle-status-btn"
+                                    data-product-id="{{ $product->id }}"
+                                    data-current-status="{{ $product->status }}"
+                                    title="{{ $product->status == 1 ? 'Désactiver' : 'Activer' }}"
+                                >
+                                    @if ($product->status == 1)
+                                        <i class="fas fa-eye text-primary"></i>
+                                    @else
+                                        <i class="fas fa-eye-slash text-warning"></i>
+                                    @endif
+                                </button>
 
-                            {{-- Modifier --}}
-                            <a href="{{ url('/admin/editeproduct/' . $product->id) }}"
-                               class="btn btn-primary btn-sm" title="Modifier">
-                              <i class="fas fa-edit"></i>
-                            </a>
+                                {{-- Modifier --}}
+                                <a href="{{ route('admin.editeproduct', $product->id) }}"
+                                class="btn btn-primary btn-sm" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
 
-                            {{-- Supprimer --}}
-                            <form action="{{ url('/admin/deleteproduct/' . $product->id) }}"
-                                  method="POST"
-                                  style="display:inline-block;"
-                                  onsubmit="return confirm('Voulez-vous vraiment supprimer ce produit ?');">
-                              @csrf
-                              @method('DELETE')
-                            </form>
-                           <a href="{{url('/admin/deleteproduct/'.$product->id)}}" id="delete" class="btn btn-danger"  style="display:inline-block;"><i class="nav-icon fas fa-trash"></i></a>
-                          </td>
+                                {{-- 🔥 Supprimer avec SweetAlert2 --}}
+                                <button type="button"
+                                        class="btn btn-danger btn-sm delete-product"
+                                        data-product-id="{{ $product->id }}"
+                                        title="Supprimer ce produit">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
                         </tr>
                       @endforeach
                     @endforeach
@@ -154,10 +151,14 @@
 @endsection
 
 @section('script')
+  <!-- DataTables JS -->
   <script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
     $(function () {
@@ -169,7 +170,7 @@
         }
       });
 
-      // 🔁 Gestion du changement de statut via AJAX
+      // 🔁 Toggle status (inchangé)
       $('.toggle-status-btn').on('click', function () {
         const button = $(this);
         const productId = button.data('product-id');
@@ -179,8 +180,7 @@
           ? `/admin/activateproduct/${productId}`
           : `/admin/unactivateproduct/${productId}`;
 
-        // Désactiver le bouton pendant la requête
-        button.prop('disabled', true).addClass('disabled');
+        button.prop('disabled', true);
 
         $.ajax({
           url: url,
@@ -189,8 +189,7 @@
             _token: '{{ csrf_token() }}',
             _method: 'PUT'
           },
-          success: function (response) {
-            // Mettre à jour l’affichage
+          success: function () {
             const badge = button.closest('tr').find('.status-badge');
             const icon = button.find('i');
 
@@ -206,15 +205,60 @@
 
             button.data('current-status', newStatus);
           },
-          error: function (xhr) {
-            alert('Erreur lors du changement de statut. Veuillez réessayer.');
-            console.error(xhr);
+          error: function () {
+            alert('Erreur lors du changement de statut.');
           },
           complete: function () {
-            button.prop('disabled', false).removeClass('disabled');
+            button.prop('disabled', false);
+          }
+        });
+      });
+
+      // 💥 Suppression produit avec SweetAlert2
+      $(document).on('click', '.delete-product', function () {
+        const productId = $(this).data('product-id');
+        const row = $(`tr[data-product-id="${productId}"]`);
+
+        Swal.fire({
+          title: 'Êtes-vous sûr ?',
+          html: "La suppression supprimera <b>toutes les images</b> associées à ce produit.<br>Vous ne pourrez pas revenir en arrière !",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Oui, supprimer !',
+          cancelButtonText: 'Annuler'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: `/admin/yesdeleteproduct/${productId}`,
+              type: 'POST',
+              data: {
+                _token: '{{ csrf_token() }}',
+                _method: 'DELETE'
+              },
+              success: function (response) {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Supprimé !',
+                  text: 'Le produit a été supprimé avec succès.',
+                  timer: 1500,
+                  showConfirmButton: false
+                });
+                row.fadeOut(400, function() { $(this).remove(); });
+              },
+              error: function (xhr) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Erreur',
+                  text: xhr.responseJSON?.message || 'Une erreur est survenue.',
+                });
+              }
+            });
           }
         });
       });
     });
   </script>
 @endsection
+

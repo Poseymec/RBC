@@ -1,8 +1,8 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro_modifier_utulisatuer
-    
+   Rainbow-business_modifier_utulisatuer
+
 @endsection
 @section('contenu')
 
@@ -44,7 +44,7 @@
               <!-- form start -->
               <form action="{{url('admin/assignroleuser/'.$user->id)}}" method="POST">
                 @csrf
-               
+
                 <div class="card-body">
                   <div class="form-group">
                     <label>Roles:</label>
@@ -77,5 +77,5 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-    
+
 @endsection

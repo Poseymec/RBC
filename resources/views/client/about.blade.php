@@ -4,7 +4,7 @@
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 rounded-3xl shadow-xl mt-10">
     <div class="max-w-6xl mx-auto px-4 py-12 sm:py-16 md:py-24">
       <!-- Titre -->
-      <div class="text-center mb-16">
+      <div class="text-center mb-10">
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#E8192C] tracking-tight">
           À propos de Rainbow Business
         </h1>
@@ -13,7 +13,7 @@
       <!-- Description principale -->
       <div class="prose prose-lg dark:prose-invert max-w-3xl mx-auto mb-20 text-center">
         <p class="text-gray-800 dark:text-gray-300 text-xl leading-relaxed">
-          Nous sommes une entreprise engagée dans la distribution et l’approvisionnement de produits de qualité, avec un service personnalisé pour répondre à vos besoins spécifiques.
+         Rainbow Business est une entreprise camerounaise qui met à votre disposition une large gamme de produits de qualité allant des articles pour l’hygiène et l’entretien aux produits pratiques pour la maison et la restauration.
         </p>
       </div>
 
@@ -33,7 +33,7 @@
                 Distribution & Vente
               </h2>
               <p class="text-gray-700 dark:text-gray-300 text-xl leading-relaxed">
-                Nous distribuons une large gamme de produits auprès de pharmacies, hôpitaux et détaillants à travers le Cameroun.
+               Nous proposons une large gamme de produits de qualité (papier aluminium, film alimentaire, cirage, fil dentaire, etc.), disponibles pour particuliers, distributeurs et entreprises.
               </p>
             </div>
           </div>
@@ -53,7 +53,7 @@
                 Approvisionnement sur mesure
               </h2>
               <p class="text-gray-700 dark:text-gray-300 text-xl leading-relaxed">
-                Nous proposons des solutions d’approvisionnement adaptées à vos besoins, avec des délais rapides et un suivi rigoureux.
+               Commandes en gros adaptées aux besoins spécifiques des hôtels, restaurants, supermarchés, pharmacies
               </p>
             </div>
           </div>

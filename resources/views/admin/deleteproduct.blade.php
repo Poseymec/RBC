@@ -1,7 +1,7 @@
 @extends('admin_layout.master')
 @section('titre')
 
-    NLelectro_supprimer-produit
+   Rainbow-business_supprimer-produit
 
 @endsection
 
