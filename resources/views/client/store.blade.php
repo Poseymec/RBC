@@ -6,10 +6,15 @@ Produit
 
 @section('contenu')
 
-<div class="max-w-7xl mx-auto px-4 py-8">
+<div class="max-w-7xl mx-auto px-4 py-8 mt-20">
   <h1 class="text-3xl font-bold text-[#E8192C] mb-8">
     Nos Produits
   </h1>
+
+  @php
+    // Calcul du nombre total de produits actifs
+    $totalActiveProducts = $categories->sum(fn($cat) => $cat->products->where('status', 1)->count());
+  @endphp
 
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
     <!-- Colonne gauche : Filtres -->
@@ -46,23 +51,28 @@ Produit
 
         <ul id="categoryFilters" class="space-y-3">
           @foreach ($categories as $categorie)
-          <li>
-            <label class="flex items-center justify-between gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
-              <div class="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  class="category-checkbox accent-[#E8192C]"
-                  value="{{ $categorie->id }}"
-                >
-                <span class="text-gray-800 dark:text-gray-200 font-medium">
-                  {{ $categorie->category_name }}
-                </span>
-              </div>
-              <small class="text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-600 px-2 py-0.5 rounded-full text-xs">
-                {{ $categorie->products_count }}
-              </small>
-            </label>
-          </li>
+            @php
+              $activeCount = $categorie->products->where('status', 1)->count();
+            @endphp
+            @if ($activeCount > 0)
+              <li>
+                <label class="flex items-center justify-between gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
+                  <div class="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      class="category-checkbox accent-[#E8192C]"
+                      value="{{ $categorie->id }}"
+                    >
+                    <span class="text-gray-800 dark:text-gray-200 font-medium">
+                      {{ $categorie->category_name }}
+                    </span>
+                  </div>
+                  <small class="text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-600 px-2 py-0.5 rounded-full text-xs">
+                    {{ $activeCount }}
+                  </small>
+                </label>
+              </li>
+            @endif
           @endforeach
         </ul>
       </div>
@@ -70,34 +80,22 @@ Produit
 
     <!-- Colonne droite : Produits -->
     <div class="lg:col-span-3">
-      <!-- Barre de tri (désactivée mais conservée) -->
+      <!-- Barre de tri + compteur -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <p class="text-sm text-gray-600 dark:text-gray-400">
-          {{ $categories->sum(fn($c) => $c->products_count) }} produits trouvés
+          {{ $totalActiveProducts }} produits trouvés
         </p>
-        <div class="flex items-center gap-2">
-          <label for="sort" class="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Trier par :
-          </label>
-          <select
-            id="sort"
-            class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-[#E8192C]"
-            disabled
-          >
-            <option value="popular" selected>Populaire</option>
-            <option value="price-asc">Prix croissant</option>
-            <option value="price-desc">Prix décroissant</option>
-            <option value="rating">Meilleure note</option>
-            <option value="reviews">Plus de commentaires</option>
-          </select>
-        </div>
+       
       </div>
 
       <!-- Grille de produits -->
       <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @foreach ($categories as $categorie)
-          @if ($categorie->products_count > 0)
-            @foreach ($categorie->products as $product)
+          @php
+            $activeProducts = $categorie->products->where('status', 1);
+          @endphp
+          @if ($activeProducts->isNotEmpty())
+            @foreach ($activeProducts as $product)
               <div
                 class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-4 border border-gray-200 dark:border-gray-700"
                 data-category="{{ $categorie->id }}"
@@ -137,7 +135,7 @@ Produit
                     Voir
                   </a>
                   <a
-                    href="{{url('/commandeproduit/'.$product->id)}}"
+                    href="{{ url('/commandeproduit/' . $product->id) }}"
                     class="flex-1 px-3 py-2 text-sm font-medium text-center bg-[#E8192C] hover:bg-red-700 text-white rounded-lg transition-colors"
                   >
                     Commander
@@ -185,12 +183,12 @@ html.dark {
 }
 </style>
 
+@push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('search');
   const resetBtn = document.getElementById('resetFilters');
   const checkboxes = document.querySelectorAll('.category-checkbox');
-  const productGrid = document.getElementById('productGrid');
   const noResults = document.getElementById('noResults');
   const paginationEl = document.getElementById('pagination');
 
@@ -305,3 +303,4 @@ document.addEventListener('DOMContentLoaded', () => {
   applyFiltersAndPagination();
 });
 </script>
+@endpush

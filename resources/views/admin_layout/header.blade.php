@@ -5,7 +5,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{url('/')}}" class="nav-link">Boutique</a>
+        <a href="{{url('/store')}}" class="nav-link">Boutique</a>
       </li>
      {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -23,7 +23,7 @@
         </div>
       </div>
     </form>
- 
+
 
     <!-- Right navbar links -->
    <ul class="navbar-nav ml-auto">
@@ -119,4 +119,3 @@
       </li>
     </ul>
   </nav>
-  

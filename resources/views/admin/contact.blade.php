@@ -14,11 +14,7 @@
           <div class="col-sm-6">
             <h1>Contact</h1>
             <p>
-              @auth
-                {{ auth()->user()->name }}
-                {{ auth()->user()->getRoleNames() }}
-                {{ auth()->user()->getPermissionNames() }}
-              @endauth
+
             </p>
           </div>
           <div class="col-sm-6">
@@ -41,14 +37,7 @@
                 <h3 class="card-title">Tous les messages</h3>
               </div>
 
-              @if (session('success'))
-                <div class="alert alert-success m-3">{{ session('success') }}</div>
-              @endif
-
-              @if (session('error'))
-                <div class="alert alert-danger m-3">{{ session('error') }}</div>
-              @endif
-
+              
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -63,7 +52,7 @@
                   </thead>
                   <tbody>
                     @forelse ($contacts as $contact)
-                      <tr>
+                      <tr id="contact-row-{{ $contact->id }}">
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $contact->name }}</td>
                         <td>{{ $contact->email }}</td>
@@ -83,14 +72,13 @@
                             <i class="fas fa-eye"></i>
                           </a>
 
-                          <!-- Supprimer -->
-                          <form action="{{ url('/admin/deletecontact/' . $contact->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce message ?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" title="Supprimer">
-                              <i class="fas fa-trash"></i>
-                            </button>
-                          </form>
+                          <!-- Supprimer (AJAX + SweetAlert) -->
+                          <button type="button"
+                                  class="btn btn-danger btn-sm delete-contact"
+                                  data-contact-id="{{ $contact->id }}"
+                                  title="Supprimer">
+                            <i class="fas fa-trash"></i>
+                          </button>
                         </td>
                       </tr>
                     @empty
@@ -129,6 +117,10 @@
   <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
     $(function () {
       $("#example1").DataTable({
@@ -137,6 +129,51 @@
         "language": {
           "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
         }
+      });
+
+      // Gestion de la suppression avec SweetAlert2
+      $(document).on('click', '.delete-contact', function () {
+        const contactId = $(this).data('contact-id');
+        const row = $(`#contact-row-${contactId}`);
+
+        Swal.fire({
+          title: 'Êtes-vous sûr ?',
+          text: "Vous ne pourrez pas revenir en arrière !",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Oui, supprimer !',
+          cancelButtonText: 'Annuler'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: `/admin/deletecontact/${contactId}`,
+              type: 'POST',
+              data: {
+                _token: '{{ csrf_token() }}',
+                _method: 'DELETE'
+              },
+              success: function (response) {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Supprimé !',
+                  text: response.success || 'Le message a été supprimé.',
+                  timer: 1500,
+                  showConfirmButton: false
+                });
+                row.fadeOut(400, function() { $(this).remove(); });
+              },
+              error: function (xhr) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Erreur',
+                  text: xhr.responseJSON?.message || 'Une erreur est survenue lors de la suppression.',
+                });
+              }
+            });
+          }
+        });
       });
     });
   </script>

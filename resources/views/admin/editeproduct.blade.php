@@ -2,11 +2,11 @@
 @section('titre')
 
     NLelectro_modifier_produit
-    
+
 @endsection
 @section('contenu')
 
-    
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -43,9 +43,9 @@
               <div class="alert alert-success"> {{Session::get('status')}}</div>
               @endif
 
-              
-                    
-            
+
+
+
               <form id="quickForm"  action="{{url('/admin/updateproduct/'.$products->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method("PUT")
@@ -76,13 +76,13 @@
                     <textarea name="product_description" id="exampleInputEmail1" cols="30" rows="10" class="form-control"  required>{{$products->product_description}}</textarea>
                   <div class="form-group">
                     <label>Categorie</label>
-                    
+
                     <select class="form-control select2" style="width: 100%;" name="product_category"  required>
                       <option selected="selected">{{$products->product_category}}</option>
                       @foreach ($categories as $category)
-                      
+
                       <option>{{$category->category_name}}</option>
-                    
+
                       @endforeach
                     </select>
                   </div>
@@ -113,7 +113,7 @@
                   <input type="submit" class="btn btn-success" value="Modifier">
                 </div>
               </form>
-           
+
             </div>
             <!-- /.card -->
             </div>
@@ -128,32 +128,32 @@
                   <th>Image</th>
                   <th>Action</th>
 
-                  
-                
+
+
                 </tr>
                 </thead>
                 <tbody>
                   @foreach ($productimages as $image)
                 <tr>
                   <td>{{$increment}}</td>
-                 
+
                   <td style="text-align:center;">
                       <img src="{{asset('storage/products_images/'.$image->images)}}" style="height : 50px; width : 50px" class="img-circle elevation-2" alt="User Image">
                   </td>
-                  <td style="text-align:center;"> 
+                  <td style="text-align:center;">
                     <a href="{{url('/admin/deleteproductimage/'.$image->id)}}" id="delete" class="btn btn-danger"  style="display:inline-block;"><i class="nav-icon fas fa-trash"></i></a>
                   </td>
             </tr>
             <input type="hidden" {{$increment++}}>
             @endforeach
-           
+
             </tbody>
             <tfoot>
             <tr>
               <th>Numero</th>
               <th>Images</th>
               <th>Action</th>
-            
+
             </tr>
             </tfoot>
           </table>

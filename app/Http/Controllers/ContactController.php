@@ -21,7 +21,7 @@ class ContactController extends Controller
     }
 
     // Stocke un nouveau contact
- 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -100,12 +100,13 @@ class ContactController extends Controller
 
         try {
             $contact->delete();
-            return redirect()->back()->with('success', 'Contact supprimé avec succès');
+            return response()->json(['success' => 'Contact supprimé avec succès']);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Erreur lors de la suppression : ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Erreur lors de la suppression : ' . $e->getMessage()
+            ], 500);
         }
     }
-
     // Basculer le statut entre lu et non lu
     public function toggleStatus($id)
     {

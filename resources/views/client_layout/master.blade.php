@@ -29,7 +29,7 @@
     }
   </style>
 </head>
-	<body>
+
 
 
         {{---debut header et navbar--}}
@@ -53,5 +53,5 @@
 
 
 
-    </body>
+
 </html>

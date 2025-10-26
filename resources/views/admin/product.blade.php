@@ -56,13 +56,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @php
-                      $counter = 1;
-                    @endphp
+                    @php $counter = 1; @endphp
 
                     @foreach ($categories as $categorie)
                       @foreach ($categorie->products as $product)
-                        <tr>
+                        <tr data-product-id="{{ $product->id }}">
                           <td>{{ $counter++ }}</td>
                           <td>
                             <img src="{{ asset('storage/product_cover/' . $product->cover) }}"
@@ -79,50 +77,47 @@
                           <td>{{ $product->product_brand ?? '—' }}</td>
                           <td>
                             @if ($product->status == 1)
-                              <span class="badge bg-success">Activé</span>
+                              <span class="badge bg-success status-badge">Activé</span>
                             @else
-                              <span class="badge bg-warning">Désactivé</span>
+                              <span class="badge bg-warning status-badge">Désactivé</span>
                             @endif
                           </td>
                           <td class="text-center">
-                            <!-- 👁️ Voir le détail -->
-                            <a href="{{ url('/admin/detailproduit/' . $product->id) }}" class="btn btn-info btn-sm" title="Voir le détail">
-                              <i class="fas fa-eye"></i>
+                            {{-- Voir le détail --}}
+                            <a href="{{ url('/admin/detailproduit/' . $product->id) }}"
+                               class="btn btn-info btn-sm" title="Voir le détail">
+                              <i class="fas fa-info-circle"></i>
                             </a>
 
-                            <!-- 👁️/👁️‍🗨️ Activer / Désactiver -->
-                            @if ($product->status == 1)
-                              <form action="{{ url('/admin/unactivateproduct/' . $product->id) }}" method="POST" style="display:inline;" title="Désactiver">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                  <i class="fas fa-eye"></i>
-                                </button>
-                              </form>
-                            @else
-                              <form action="{{ url('/admin/activateproduct/' . $product->id) }}" method="POST" style="display:inline;" title="Activer">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-warning btn-sm">
-                                  <i class="fas fa-eye-slash"></i>
-                                </button>
-                              </form>
-                            @endif
+                            {{-- 🔁 Bouton Activer/Désactiver (AJAX) --}}
+                            <button
+                              class="btn btn-sm toggle-status-btn"
+                              data-product-id="{{ $product->id }}"
+                              data-current-status="{{ $product->status }}"
+                              title="{{ $product->status == 1 ? 'Désactiver' : 'Activer' }}"
+                            >
+                              @if ($product->status == 1)
+                                <i class="nav-icon fas fa-eye text-primary"></i>
+                              @else
+                                <i class="nav-icon fas fa-eye-slash text-warning"></i>
+                              @endif
+                            </button>
 
-                            <!-- ✏️ Modifier -->
-                            <a href="{{ url('/admin/editeproduct/' . $product->id) }}" class="btn btn-primary btn-sm" title="Modifier">
+                            {{-- Modifier --}}
+                            <a href="{{ url('/admin/editeproduct/' . $product->id) }}"
+                               class="btn btn-primary btn-sm" title="Modifier">
                               <i class="fas fa-edit"></i>
                             </a>
 
-                            <!-- 🗑️ Supprimer -->
-                            <form action="{{ url('/admin/deleteproduct/' . $product->id) }}" method="POST" style="display:inline;"
+                            {{-- Supprimer --}}
+                            <form action="{{ url('/admin/deleteproduct/' . $product->id) }}"
+                                  method="POST"
+                                  style="display:inline-block;"
                                   onsubmit="return confirm('Voulez-vous vraiment supprimer ce produit ?');">
                               @csrf
                               @method('DELETE')
-                              <button type="submit" class="btn btn-danger btn-sm" title="Supprimer">
-                                <i class="fas fa-trash"></i>
-                              </button>
                             </form>
+                           <a href="{{url('/admin/deleteproduct/'.$product->id)}}" id="delete" class="btn btn-danger"  style="display:inline-block;"><i class="nav-icon fas fa-trash"></i></a>
                           </td>
                         </tr>
                       @endforeach
@@ -163,6 +158,7 @@
   <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
   <script>
     $(function () {
       $("#example1").DataTable({
@@ -171,6 +167,53 @@
         "language": {
           "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
         }
+      });
+
+      // 🔁 Gestion du changement de statut via AJAX
+      $('.toggle-status-btn').on('click', function () {
+        const button = $(this);
+        const productId = button.data('product-id');
+        const currentStatus = button.data('current-status');
+        const newStatus = currentStatus === 1 ? 0 : 1;
+        const url = newStatus === 1
+          ? `/admin/activateproduct/${productId}`
+          : `/admin/unactivateproduct/${productId}`;
+
+        // Désactiver le bouton pendant la requête
+        button.prop('disabled', true).addClass('disabled');
+
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: {
+            _token: '{{ csrf_token() }}',
+            _method: 'PUT'
+          },
+          success: function (response) {
+            // Mettre à jour l’affichage
+            const badge = button.closest('tr').find('.status-badge');
+            const icon = button.find('i');
+
+            if (newStatus === 1) {
+              badge.removeClass('bg-warning').addClass('bg-success').text('Activé');
+              icon.removeClass('fa-eye-slash text-warning').addClass('fa-eye text-primary');
+              button.attr('title', 'Désactiver');
+            } else {
+              badge.removeClass('bg-success').addClass('bg-warning').text('Désactivé');
+              icon.removeClass('fa-eye text-primary').addClass('fa-eye-slash text-warning');
+              button.attr('title', 'Activer');
+            }
+
+            button.data('current-status', newStatus);
+          },
+          error: function (xhr) {
+            alert('Erreur lors du changement de statut. Veuillez réessayer.');
+            console.error(xhr);
+          },
+          complete: function () {
+            button.prop('disabled', false).removeClass('disabled');
+          }
+        });
       });
     });
   </script>

@@ -14,12 +14,7 @@
           <div class="col-sm-6">
             <h1>Newsletter</h1>
             <p>
-              @auth
-                {{ auth()->user()->name }}
-                {{ auth()->user()->getRoleNames() }}
-                {{ auth()->user()->getPermissionNames() }}
-              @endauth
-            </p>
+
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -40,15 +35,6 @@
               <div class="card-header">
                 <h3 class="card-title">Tous les contacts de la newsletter</h3>
               </div>
-              <!-- /.card-header -->
-
-              @if (session('success'))
-                <div class="alert alert-success m-3">{{ session('success') }}</div>
-              @endif
-
-              @if (session('error'))
-                <div class="alert alert-danger m-3">{{ session('error') }}</div>
-              @endif
 
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -62,24 +48,17 @@
                   </thead>
                   <tbody>
                     @forelse ($letters as $letter)
-                      <tr>
+                      <tr id="newsletter-row-{{ $letter->id }}">
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $letter->email }}</td>
                         <td>{{ $letter->phone ?? '—' }}</td>
-                        <td style="text-align: center">
-                          <!-- Optionnel : lien d'édition si tu veux permettre la modification -->
-                          {{-- <a href="{{ route('newsletter.edit', $letter->id) }}" class="btn btn-primary btn-sm">
-                            <i class="fas fa-edit"></i>
-                          </a> --}}
-
-                          <!-- Suppression -->
-                          <form action="{{ url('/admin/newsletter/' . $letter->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet abonné ?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">
-                              <i class="fas fa-trash"></i>
-                            </button>
-                          </form>
+                        <td class="text-center">
+                          <button type="button"
+                                  class="btn btn-danger btn-sm delete-newsletter"
+                                  data-id="{{ $letter->id }}"
+                                  title="Supprimer">
+                            <i class="fas fa-trash"></i>
+                          </button>
                         </td>
                       </tr>
                     @empty
@@ -98,19 +77,12 @@
                   </tfoot>
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 @endsection
 
 @section('style')
@@ -123,6 +95,10 @@
   <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
     $(function () {
       $("#example1").DataTable({
@@ -131,6 +107,51 @@
         "language": {
           "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
         }
+      });
+
+      // Suppression avec SweetAlert2
+      $(document).on('click', '.delete-newsletter', function () {
+        const id = $(this).data('id');
+        const row = $(`#newsletter-row-${id}`);
+
+        Swal.fire({
+          title: 'Êtes-vous sûr ?',
+          text: "Cet abonné sera supprimé définitivement.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Oui, supprimer !',
+          cancelButtonText: 'Annuler'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: `/admin/newsletter/${id}`,
+              type: 'POST',
+              data: {
+                _token: '{{ csrf_token() }}',
+                _method: 'DELETE'
+              },
+              success: function (response) {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Supprimé !',
+                  text: response.success || 'Abonné supprimé avec succès.',
+                  timer: 1500,
+                  showConfirmButton: false
+                });
+                row.fadeOut(400, function() { $(this).remove(); });
+              },
+              error: function (xhr) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Erreur',
+                  text: xhr.responseJSON?.message || 'Une erreur est survenue.',
+                });
+              }
+            });
+          }
+        });
       });
     });
   </script>

@@ -84,14 +84,17 @@ class NewsletterController extends Controller
     }
 
     // Supprime une newsletter
+
     public function destroy($id)
     {
         $letter = Newsletter::findOrFail($id);
         try {
             $letter->delete();
-            return redirect()->back()->with('success', 'Newsletter supprimée avec succès');
+            return response()->json(['success' => 'Abonné supprimé avec succès.']);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Erreur lors de la suppression : ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Erreur lors de la suppression : ' . $e->getMessage()
+            ], 500);
         }
     }
 }

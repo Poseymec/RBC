@@ -5,7 +5,7 @@
 @endsection
 
 @section('contenu')
-<section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
+<section class="py-8 mt-20 bg-white md:py-16 dark:bg-gray-900 antialiased">
     <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
         <!-- 🔙 Bouton retour -->
         <div class="mb-6">

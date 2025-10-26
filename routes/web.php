@@ -101,7 +101,7 @@ Route::middleware(['auth.session','password.confirm','CheckRoles:Admin,super-Adm
     Route::get('/admin/addslider',[AdminController::class,'addslider']);
     Route::get('/admin/slider',[AdminController::class,'slider']);
     Route::get('/admin/addproduct',[AdminController::class,'addproduct']);
-    Route::get('/admin/product',[AdminController::class,'product']);
+    Route::get('/admin/product', [AdminController::class, 'product'])->name('admin.product');
     Route::get('/admin/promo',[AdminController::class,'promo']);
     Route::get('/admin/addpromo',[AdminController::class,'addpromo']);
     Route::get('/admin/userregister',[AdminController::class,'userregister']);
@@ -182,5 +182,9 @@ Route::delete('/admin/yesdeletenewsletter/{id}',[AdminController::class,'yesdele
 // Formulaire de contact
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+Route::delete('/admin/deletecontact/{id}', [ContactController::class, 'destroy'])->name('admin.contact.destroy');
+
 // Formulaire de newsletter
 Route::post('/newsletters', [NewsLetterController::class, 'store'])->name('newsletter.store');
+
+Route::delete('/admin/newsletter/{id}', [NewsletterController::class, 'destroy']);

@@ -1,5 +1,5 @@
 
-  <footer class=" bottom-0 mt-10left-0 w-full bg-gray-900 text-white pt-12 pb-8 px-4 md:px-8 border-t border-gray-800">
+  <footer class=" bottom-0  left-0 w-full bg-gray-900 text-white pt-12 pb-8 px-4 md:px-8 border-t border-gray-800">
     <div class="max-w-7xl mx-auto">
       <!-- Grille de colonnes -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
@@ -77,5 +77,5 @@
     </div>
   </footer>
 
-</body>
-</html>
+    </body>
+

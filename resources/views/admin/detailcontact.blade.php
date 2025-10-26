@@ -31,7 +31,7 @@
         <div class="row">
           <div class="col-md-8 offset-md-2">
             <div class="card card-info">
-              <div class="card-header">
+              <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Message de <strong>{{ $contact->name ?? 'Anonyme' }}</strong></h3>
                 <div class="card-tools">
                   <a href="{{ url('/admin/contact') }}" class="btn btn-sm btn-secondary">
@@ -83,13 +83,10 @@
               </div>
 
               <div class="card-footer text-right">
-                <form action="{{ url('/admin/deletecontact/' . $contact->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer ce message ?');">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="btn btn-danger">
-                    <i class="fas fa-trash"></i> Supprimer ce message
-                  </button>
-                </form>
+                <!-- Bouton Supprimer avec SweetAlert -->
+                <button type="button" id="deleteContactBtn" class="btn btn-danger">
+                  <i class="fas fa-trash"></i> Supprimer ce message
+                </button>
               </div>
             </div>
           </div>
@@ -97,4 +94,66 @@
       </div>
     </section>
   </div>
+@endsection
+
+@section('script')
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const deleteBtn = document.getElementById('deleteContactBtn');
+
+      if (deleteBtn) {
+        deleteBtn.addEventListener('click', function () {
+          Swal.fire({
+            title: 'Êtes-vous sûr ?',
+            text: "Cette action supprimera définitivement ce message.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Oui, supprimer !',
+            cancelButtonText: 'Annuler'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Envoi de la requête AJAX
+              fetch(`/admin/deletecontact/{{ $contact->id }}`, {
+                method: 'POST',
+                headers: {
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                  'X-Requested-With': 'XMLHttpRequest',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  _method: 'DELETE'
+                })
+              })
+              .then(response => response.json())
+              .then(data => {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Supprimé !',
+                  text: data.success || 'Le message a été supprimé.',
+                  timer: 1500,
+                  showConfirmButton: false
+                }).then(() => {
+                  // Rediriger vers la liste après suppression
+                  window.location.href = "{{ url('/admin/contact') }}";
+                });
+              })
+              .catch(error => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Erreur',
+                  text: 'Une erreur est survenue lors de la suppression.',
+                });
+                console.error('Erreur:', error);
+              });
+            }
+          });
+        });
+      }
+    });
+  </script>
 @endsection
