@@ -83,15 +83,9 @@
 
                 <!-- Catégorie -->
                 <div class="mt-2">
-                    @if($product->category)
                         <span class="inline-block px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                            {{ $product->category->category_name }}
+                            {{ $product->product_category }}
                         </span>
-                    @else
-                        <span class="inline-block px-3 py-1 text-xs font-medium bg-gray-200 text-gray-600 rounded-full">
-                            Catégorie non définie
-                        </span>
-                    @endif
                 </div>
 
                 <!-- Description -->

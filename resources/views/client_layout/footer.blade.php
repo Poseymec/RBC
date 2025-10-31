@@ -68,8 +68,7 @@
       <div class="flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
         <p>© 2025 RAINBOW-BUSINESS & CONSULTING. Tous droits réservés. by DIGITALPRINT service</p>
         <div class="flex space-x-4 mt-4 md:mt-0">
-          <a href="/privacy" class="hover:text-white">Politique de confidentialité</a>
-          <a href="/terms" class="hover:text-white">Conditions d'utilisation</a>
+      
         </div>
       </div>
     </div>

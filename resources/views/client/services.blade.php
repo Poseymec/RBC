@@ -8,7 +8,7 @@
           Nos Services
         </h1>
         <p class="mt-6 text-2xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Des solutions adaptées à tous vos besoins professionnels.
+        Des solutions adaptées à tous vos besoins .
         </p>
       </div>
 

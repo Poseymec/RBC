@@ -33,7 +33,7 @@
 
         <!-- Bouton CTA -->
         <a
-          href="/product"
+          href="/store"
           class="cta-button inline-block px-6 py-3 bg-[#E8192C] text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
         >
           Voir nos produits
