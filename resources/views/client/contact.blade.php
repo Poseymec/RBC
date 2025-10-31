@@ -98,7 +98,7 @@
                   type="text"
                   required
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E8192C] focus:outline-none"
-                  placeholder="Tagni albert"
+                  placeholder="Rainbow Business"
                 />
               </div>
               <div>
