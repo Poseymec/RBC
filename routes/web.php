@@ -52,7 +52,7 @@ Route::middleware(['auth', 'password.confirm', 'CheckRoles:Admin,super-Admin'])-
     Route::get('/editeproduct/{id}', [ProductController::class, 'editeproduct'])->name('admin.editeproduct');
     Route::put('/updateproduct/{id}', [ProductController::class, 'updateproduct'])->name('admin.updateproduct');
     Route::delete('/yesdeleteproduct/{id}', [ProductController::class, 'yesdeleteproduct'])->name('admin.yesdeleteproduct');
-    Route::get('/deleteproduct/{id}', [ProductController::class, 'deleteproduct'])->name('admin.deleteproduct');
+   // Route::get('/deleteproduct/{id}', [ProductController::class, 'deleteproduct'])->name('admin.deleteproduct');
     Route::delete('/admin/productimage/{id}', [ProductController::class, 'destroyProductImage'])->name('admin.productimage.destroy');
     Route::get('/detailproduit/{id}', [AdminController::class, 'detailproduit'])->name('admin.detailproduit');
 
@@ -66,7 +66,7 @@ Route::middleware(['auth', 'password.confirm', 'CheckRoles:Admin,super-Admin'])-
     Route::post('/savecategory', [CategoryController::class, 'savecategory'])->name('admin.savecategory');
     Route::get('/editecategory/{id}', [CategoryController::class, 'editecategory'])->name('admin.editecategory');
     Route::put('/updatecategory/{id}', [CategoryController::class, 'updatecategory'])->name('admin.updatecategory');
-    Route::get('/deletecategory/{id}', [CategoryController::class, 'deletecategory'])->name('admin.deletecategory');
+   // Route::get('/deletecategory/{id}', [CategoryController::class, 'deletecategory'])->name('admin.deletecategory');
     Route::delete('/yesdeletecategory/{id}', [CategoryController::class, 'yesdeletecategory'])->name('admin.yesdeletecategory');
 
     // === Sliders ===
@@ -75,7 +75,7 @@ Route::middleware(['auth', 'password.confirm', 'CheckRoles:Admin,super-Admin'])-
     Route::post('/saveslider', [SliderController::class, 'saveslider'])->name('admin.saveslider');
     Route::get('/editeslider/{id}', [SliderController::class, 'editeslider'])->name('admin.editeslider');
     Route::put('/updateslider/{id}', [SliderController::class, 'updateslider'])->name('admin.updateslider');
-    Route::get('/deleteslider/{id}', [SliderController::class, 'deleteslider'])->name('admin.deleteslider');
+    Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('admin.destroy');
     Route::delete('/yesdeleteslider/{id}', [SliderController::class, 'yesdeleteslider'])->name('admin.yesdeleteslider');
     Route::put('/activateslider/{id}', [SliderController::class, 'activateslider'])->name('admin.activateslider');
     Route::put('/unactivateslider/{id}', [SliderController::class, 'unactivateslider'])->name('admin.unactivateslider');
@@ -100,7 +100,7 @@ Route::middleware(['auth', 'password.confirm', 'CheckRoles:Admin,super-Admin'])-
     // === Contacts & Newsletter ===
     Route::get('/contact', [AdminController::class, 'contact'])->name('admin.contact');
     Route::get('/detailcontact/{id}', [AdminController::class, 'detailcontact'])->name('admin.detailcontact');
-    Route::get('/deletecontact/{id}', [AdminController::class, 'deletecontact'])->name('admin.deletecontact');
+    //Route::get('/deletecontact/{id}', [AdminController::class, 'deletecontact'])->name('admin.deletecontact');
     Route::delete('/yesdeletecontact/{id}', [ContactController::class, 'destroy'])->name('admin.contact.destroy');
 
     Route::get('/newsletter', [AdminController::class, 'newsletter'])->name('admin.newsletter');

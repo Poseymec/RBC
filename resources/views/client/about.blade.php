@@ -1,64 +1,133 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 rounded-3xl shadow-xl mt-10">
+  <div class="max-w-6xl mx-auto px-4 py-12 sm:py-16 md:py-24">
 
-
-
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 rounded-3xl shadow-xl mt-10">
-    <div class="max-w-6xl mx-auto px-4 py-12 sm:py-16 md:py-24">
-      <!-- Titre -->
-      <div class="text-center mb-10">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#E8192C] tracking-tight">
-          À propos de Rainbow Business
-        </h1>
-      </div>
-
-      <!-- Description principale -->
-      <div class="prose prose-lg dark:prose-invert max-w-3xl mx-auto mb-20 text-center">
-        <p class="text-gray-800 dark:text-gray-300 text-xl leading-relaxed">
-         Rainbow Business est une entreprise camerounaise qui met à votre disposition une large gamme de produits de qualité allant des articles pour l’hygiène et l’entretien aux produits pratiques pour la maison et la restauration.
-        </p>
-      </div>
-
-      <!-- Deux colonnes -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        <!-- Distribution & Vente -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8 transition-transform hover:scale-[1.02]">
-          <div class="flex items-start gap-4">
-            <div class="mt-1 p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
-              <!-- SVG inline : mdi:truck-delivery -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="text-[#E8192C] dark:text-red-400">
-                <path fill="currentColor" d="M18 14c0-1.11.89-2 2-2s2 .89 2 2s-.89 2-2 2s-2-.89-2-2m-4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5m7.5-10H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h2v-2h16v2h1c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m-2 8h-2V8h2v6m-3-6v8H8V8h7m-7 6H6V8h2v6Z"/>
-              </svg>
-            </div>
-            <div>
-              <h2 class="text-2xl font-bold text-[#E8192C] mb-3">
-                Distribution & Vente
-              </h2>
-              <p class="text-gray-700 dark:text-gray-300 text-xl leading-relaxed">
-               Nous proposons une large gamme de produits de qualité (papier aluminium, film alimentaire, cirage, fil dentaire, etc.), disponibles pour particuliers, distributeurs et entreprises.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Approvisionnement sur mesure -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8 transition-transform hover:scale-[1.02]">
-          <div class="flex items-start gap-4">
-            <div class="mt-1 p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
-              <!-- SVG inline : mdi:clipboard-list -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="text-[#E8192C] dark:text-red-400">
-                <path fill="currentColor" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-7 0c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1m2 14H7v-2h7v2m3-4H7v-2h10v2m0-4H7V7h10v2z"/>
-              </svg>
-            </div>
-            <div>
-              <h2 class="text-2xl font-bold text-[#E8192C] mb-3">
-                Approvisionnement sur mesure
-              </h2>
-              <p class="text-gray-700 dark:text-gray-300 text-xl leading-relaxed">
-               Commandes en gros adaptées aux besoins spécifiques des hôtels, restaurants, supermarchés, pharmacies
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Titre principal -->
+    <div class="text-center mb-12">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#E8192C] tracking-tight">
+        À propos
+      </h1>
     </div>
-  </div>
 
+
+    <!-- Qui sommes-nous ? -->
+    <section class="mb-16 max-w-3xl mx-auto text-center">
+
+      <p class="text-gray-800 dark:text-gray-300 text-xl leading-relaxed">
+         Rainbow Business and Consulting, une entreprise basée au Cameroun et au Canada qui se consacre à la distribution et à la représentation de produits de qualité pour les secteurs de la restauration, de la grande distribution et de l'hygiène . <br>
+        <b>Nous mettons à votre disposition des produits de qualité à des prix imbattables</b>.
+      </p>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16">
+      <!-- Mission -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8
+                  transition-all duration-300 ease-out
+                  hover:shadow-xl hover:scale-[1.015] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
+                  cursor-pointer">
+        <div class="flex items-start gap-4">
+          <div class="mt-1 p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="text-[#E8192C] dark:text-red-400">
+              <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m1-13h-2v6h2v-6m-1 9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-[#E8192C] mb-3">🎯Notre Mission</h2>
+            <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+              Notre objectif est d'offrir des produits de qualité qui simplifient le quotidien et renforcent la confiance entre les consommateurs, les entreprises et les marques.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vision -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8
+                  transition-all duration-300 ease-out
+                  hover:shadow-xl hover:scale-[1.015] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
+                  cursor-pointer">
+        <div class="flex items-start gap-4">
+          <div class="mt-1 p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="text-[#E8192C] dark:text-red-400">
+              <path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2m0 2.15L8.91 9.37l-5.45.79 3.96 3.85L6.44 20l4.56-2.41L12 4.15z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-[#E8192C] mb-3">🚀Notre Vision</h2>
+            <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+              Nous croyons en un modèle de distribution qui crée de la valeur à chaque étape:<br>
+              Pour le client, par la fiabilité et la satisfaction;<br>
+              Pour le partenaire, par la confiance et la croissance mutuelle;<br>
+              Pour la société, par l'emploi et la formation de nos équipes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nos Valeurs -->
+    <section>
+      <div class="text-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold text-[#E8192C]">💎Nos Valeurs</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">Nos valeurs guident nos actions au quotidien:</p>
+      </div>
+
+      <div class="space-y-6 max-w-4xl mx-auto">
+        <!-- Valeur 1 -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
+                    transition-all duration-300 ease-out
+                    hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
+                    cursor-pointer">
+          <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Qualité & Intégrité</h3>
+          <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+            Nous croyons que la qualité commence par la transparence et la rigueur. Chaque produit et chaque partenariat reflète notre engagement envers la confiance et la durabilité.
+          </p>
+        </div>
+
+        <!-- Valeur 2 -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
+                    transition-all duration-300 ease-out
+                    hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
+                    cursor-pointer">
+          <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Innovation & Amélioration continue</h3>
+          <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+            Fidèle à nos engagements en faveur d'une performance continue, nous cherchons sans cesse à améliorer nos pratiques logistiques, nos produits et notre expérience client.
+          </p>
+        </div>
+
+        <!-- Valeur 3 -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
+                    transition-all duration-300 ease-out
+                    hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
+                    cursor-pointer">
+          <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Responsabilité & Impact social</h3>
+          <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+            Nous plaçons l'humain et la société au coeur de notre modèle. Nos initiatives soutiennent l'emploi local, l'accès à des produits sûrs et la sensibilisation à l'hygiène et au bien-être
+          </p>
+        </div>
+
+        <!-- Valeur 4 -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
+                    transition-all duration-300 ease-out
+                    hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
+                    cursor-pointer">
+          <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Proximité & Service</h3>
+          <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+            Etre proche de nos clients, comprendre leurs besoins et y répondre avec efficacité : c'est la base de notre culture d'entreprise
+          </p>
+        </div>
+
+        <!-- Valeur 5 -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
+                    transition-all duration-300 ease-out
+                    hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
+                    cursor-pointer">
+          <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Fiabilité & Excellence</h3>
+          <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+            Nous visons l'excellence opérationnelle dans tout ce que nous entreprenons.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

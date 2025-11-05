@@ -131,7 +131,7 @@
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
-            url: `/admin/category/${categoryId}`,
+            url: `/admin/yesdeletecategory/${categoryId}`,
             type: 'DELETE',
             data: {
               _token: '{{ csrf_token() }}'

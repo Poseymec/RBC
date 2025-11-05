@@ -3,7 +3,7 @@
 @extends('client_layout.master')
 @section('titre')
 
-	accuil_Rainbow_Business
+	accueil_Rainbow_Business
 
 @endsection
 
@@ -23,12 +23,12 @@
 
         <!-- Titre -->
         <h1 class="text-3xl md:text-4xl font-extrabold text-[#E8192C] mb-6 lg:text-6xl">
-          Bienvenue chez Rainbow Business
+         Bienvenue chez Rainbow Business and Consulting
         </h1>
 
         <!-- Description -->
         <p class="text-base md:text-xl text-gray-800 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-         Nous mettons à votre disposition une large gamme de produits de qualité allant des articles pour l’hygiène et l’entretien aux produits pratiques pour la maison et la restauration.
+         Nous vous proposons une large variété de produits de qualité à des prix compétitifs. Des articles pour l'entretien de la maison aux produits pratiques pour la restauration, nous apportons une réponse à votre besoin. Nous vous offrons la possibilité de vous <b class="text-red-500">faire livrer en gros en toute rapidité.</b>
         </p>
 
         <!-- Bouton CTA -->

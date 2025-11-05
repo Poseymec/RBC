@@ -8,14 +8,14 @@
           Nos Services
         </h1>
         <p class="mt-6 text-2xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Des solutions adaptées à tous vos besoins .
+        Des solutions adaptées à tous vos besoins.
         </p>
       </div>
 
       <!-- Cartes de services -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Service 1 : Distribution -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:scale-[1.015] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40 transition-all duration-300 ease-out">
           <div class="mb-4 text-[#E8192C]">
             <!-- mdi:truck-delivery -->
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
@@ -31,7 +31,7 @@
         </div>
 
         <!-- Service 2 : Approvisionnement sur mesure -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:scale-[1.015] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40 transition-all duration-300 ease-out">
           <div class="mb-4 text-[#E8192C]">
             <!-- mdi:clipboard-list -->
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@
         </div>
 
         <!-- Service 3 : Qualité garantie -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:scale-[1.015] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40 transition-all duration-300 ease-out">
           <div class="mb-4 text-[#E8192C]">
             <!-- mdi:earth -->
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
@@ -55,10 +55,10 @@
             </svg>
           </div>
           <h3 class="text-2xl font-bold mb-2 text-[#E8192C]">
-            Qualité garantie
+            Import-Export
           </h3>
           <p class="text-gray-700 dark:text-gray-300 text-xl leading-relaxed">
-            Tous nos produits sont certifiés et conformes aux normes internationales de qualité et de sécurité.
+            Sourcing international d'une large gamme de produits de qualité.
           </p>
         </div>
       </div>

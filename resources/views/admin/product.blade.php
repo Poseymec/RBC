@@ -81,41 +81,41 @@
                               <span class="badge bg-warning status-badge">Désactivé</span>
                             @endif
                           </td>
-                        <td class="text-center">
-                                {{-- Voir le détail --}}
-                                <a href="{{ route('admin.detailproduit', $product->id) }}"
-                                class="btn btn-info btn-sm" title="Voir le détail">
-                                    <i class="fas fa-info-circle"></i>
-                                </a>
+                          <td class="text-center">
+                            {{-- Voir le détail --}}
+                            <a href="{{ route('admin.detailproduit', $product->id) }}"
+                               class="btn btn-info btn-sm" title="Voir le détail">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
 
-                                {{-- Activer/Désactiver --}}
-                                <button
-                                    class="btn btn-sm toggle-status-btn"
+                            {{-- Activer/Désactiver --}}
+                            <button
+                                class="btn btn-sm toggle-status-btn"
+                                data-product-id="{{ $product->id }}"
+                                data-current-status="{{ $product->status }}"
+                                title="{{ $product->status == 1 ? 'Désactiver' : 'Activer' }}"
+                            >
+                                @if ($product->status == 1)
+                                    <i class="fas fa-eye text-primary"></i>
+                                @else
+                                    <i class="fas fa-eye-slash text-warning"></i>
+                                @endif
+                            </button>
+
+                            {{-- Modifier --}}
+                            <a href="{{ route('admin.editeproduct', $product->id) }}"
+                               class="btn btn-primary btn-sm" title="Modifier">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            {{-- 🔥 Supprimer avec SweetAlert2 --}}
+                            <button type="button"
+                                    class="btn btn-danger btn-sm delete-product"
                                     data-product-id="{{ $product->id }}"
-                                    data-current-status="{{ $product->status }}"
-                                    title="{{ $product->status == 1 ? 'Désactiver' : 'Activer' }}"
-                                >
-                                    @if ($product->status == 1)
-                                        <i class="fas fa-eye text-primary"></i>
-                                    @else
-                                        <i class="fas fa-eye-slash text-warning"></i>
-                                    @endif
-                                </button>
-
-                                {{-- Modifier --}}
-                                <a href="{{ route('admin.editeproduct', $product->id) }}"
-                                class="btn btn-primary btn-sm" title="Modifier">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-
-                                {{-- 🔥 Supprimer avec SweetAlert2 --}}
-                                <button type="button"
-                                        class="btn btn-danger btn-sm delete-product"
-                                        data-product-id="{{ $product->id }}"
-                                        title="Supprimer ce produit">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
+                                    title="Supprimer ce produit">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                          </td>
                         </tr>
                       @endforeach
                     @endforeach
@@ -170,7 +170,7 @@
         }
       });
 
-      // 🔁 Toggle status (inchangé)
+      // 🔁 Toggle status
       $('.toggle-status-btn').on('click', function () {
         const button = $(this);
         const productId = button.data('product-id');
@@ -214,10 +214,10 @@
         });
       });
 
-      // 💥 Suppression produit avec SweetAlert2
+      // 💥 Suppression produit avec SweetAlert2 — CORRIGÉ
       $(document).on('click', '.delete-product', function () {
         const productId = $(this).data('product-id');
-        const row = $(`tr[data-product-id="${productId}"]`);
+        const row = $(this).closest('tr'); // ← CORRECTION : on part du bouton pour trouver la ligne
 
         Swal.fire({
           title: 'Êtes-vous sûr ?',
@@ -245,13 +245,16 @@
                   timer: 1500,
                   showConfirmButton: false
                 });
-                row.fadeOut(400, function() { $(this).remove(); });
+                // ✅ Supprime la ligne du DOM sans recharger
+                row.fadeOut(400, function() {
+                  $(this).remove();
+                });
               },
               error: function (xhr) {
                 Swal.fire({
                   icon: 'error',
                   title: 'Erreur',
-                  text: xhr.responseJSON?.message || 'Une erreur est survenue.',
+                  text: xhr.responseJSON?.message || 'Une erreur est survenue lors de la suppression.',
                 });
               }
             });
@@ -261,4 +264,3 @@
     });
   </script>
 @endsection
-

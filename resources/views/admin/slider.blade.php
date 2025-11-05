@@ -28,6 +28,7 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Tous les Sliders</h3>
+              <a href="{{ route('admin.addslider') }}" class="btn btn-success float-right">Ajouter un Slider</a>
             </div>
 
             @if (Session::has('status'))
@@ -82,10 +83,10 @@
                           <i class="fas fa-edit"></i>
                         </a>
 
-                        <!-- 🔥 Supprimer avec SweetAlert2 -->
+                        <!-- 🔥 Supprimer avec SweetAlert2 (JavaScript pur) -->
                         <button type="button"
                                 class="btn btn-danger btn-sm delete-slider"
-                                data-slider-id="{{ $slider->id }}"
+                                data-id="{{ $slider->id }}"
                                 title="Supprimer">
                           <i class="fas fa-trash"></i>
                         </button>
@@ -118,6 +119,7 @@
 @endsection
 
 @section('script')
+<!-- DataTables -->
 <script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
@@ -126,9 +128,11 @@
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- Script de suppression en JavaScript pur -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
+  // Initialisation de DataTables
+  document.addEventListener('DOMContentLoaded', function () {
+    $('#example1').DataTable({
       "responsive": true,
       "autoWidth": false,
       "language": {
@@ -136,51 +140,58 @@
       }
     });
 
-    // 🔥 Suppression slider
-    $(document).on('click', '.delete-slider', function () {
-      const sliderId = $(this).data('slider-id');
-      const row = $(this).closest('tr');
+    // 🔥 Gestionnaire de suppression (JavaScript pur)
+    document.querySelectorAll('.delete-slider').forEach(button => {
+      button.addEventListener('click', function () {
+        const sliderId = this.getAttribute('data-id');
+        const row = this.closest('tr');
 
-      Swal.fire({
-        title: 'Supprimer ce slider ?',
-        text: "L’image sera définitivement supprimée.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Oui, supprimer !',
-        cancelButtonText: 'Annuler'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $.ajax({
-            url: `/admin/slider/${sliderId}`,
-            type: 'DELETE',
-            data: {
-              _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (response) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Supprimé !',
-                text: response.success,
-                timer: 1500,
-                showConfirmButton: false
-              });
-              row.fadeOut(400, function() { $(this).remove(); });
-            },
-            error: function (xhr) {
-              let message = 'Une erreur est survenue.';
-              if (xhr.responseJSON?.error) {
-                message = xhr.responseJSON.error;
+        Swal.fire({
+          title: 'Êtes-vous sûr ?',
+          text: "Ce slider sera supprimé définitivement !",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Oui, supprimer !',
+          cancelButtonText: 'Annuler'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            fetch(`/admin/destroy/${sliderId}`, {
+              method: 'DELETE',
+              headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
               }
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Supprimé !',
+                  text: data.success,
+                  timer: 1500,
+                  showConfirmButton: false
+                });
+                row.style.transition = 'opacity 0.4s';
+                row.style.opacity = '0';
+                setTimeout(() => row.remove(), 400);
+              } else {
+                throw new Error(data.error || 'Erreur inconnue');
+              }
+            })
+            .catch(error => {
               Swal.fire({
                 icon: 'error',
-                title: 'Erreur',
-                text: message,
+                title: 'Échec',
+                text: 'Une erreur est survenue lors de la suppression.'
               });
-            }
-          });
-        }
+              console.error('Erreur:', error);
+            });
+          }
+        });
       });
     });
   });
