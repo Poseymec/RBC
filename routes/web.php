@@ -53,7 +53,7 @@ Route::middleware(['auth', 'password.confirm', 'CheckRoles:Admin,super-Admin'])-
     Route::put('/updateproduct/{id}', [ProductController::class, 'updateproduct'])->name('admin.updateproduct');
     Route::delete('/yesdeleteproduct/{id}', [ProductController::class, 'yesdeleteproduct'])->name('admin.yesdeleteproduct');
    // Route::get('/deleteproduct/{id}', [ProductController::class, 'deleteproduct'])->name('admin.deleteproduct');
-    Route::delete('/admin/productimage/{id}', [ProductController::class, 'destroyProductImage'])->name('admin.productimage.destroy');
+    Route::delete('/destroyProductImage/{id}', [ProductController::class, 'destroyProductImage'])->name('admin.productimage.destroy');
     Route::get('/detailproduit/{id}', [AdminController::class, 'detailproduit'])->name('admin.detailproduit');
 
     // Activation / Désactivation produits
@@ -67,7 +67,7 @@ Route::middleware(['auth', 'password.confirm', 'CheckRoles:Admin,super-Admin'])-
     Route::get('/editecategory/{id}', [CategoryController::class, 'editecategory'])->name('admin.editecategory');
     Route::put('/updatecategory/{id}', [CategoryController::class, 'updatecategory'])->name('admin.updatecategory');
    // Route::get('/deletecategory/{id}', [CategoryController::class, 'deletecategory'])->name('admin.deletecategory');
-    Route::delete('/yesdeletecategory/{id}', [CategoryController::class, 'yesdeletecategory'])->name('admin.yesdeletecategory');
+    Route::delete('/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.destroy');
 
     // === Sliders ===
     Route::get('/slider', [AdminController::class, 'slider'])->name('admin.slider');
@@ -75,8 +75,8 @@ Route::middleware(['auth', 'password.confirm', 'CheckRoles:Admin,super-Admin'])-
     Route::post('/saveslider', [SliderController::class, 'saveslider'])->name('admin.saveslider');
     Route::get('/editeslider/{id}', [SliderController::class, 'editeslider'])->name('admin.editeslider');
     Route::put('/updateslider/{id}', [SliderController::class, 'updateslider'])->name('admin.updateslider');
-    Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('admin.destroy');
-    Route::delete('/yesdeleteslider/{id}', [SliderController::class, 'yesdeleteslider'])->name('admin.yesdeleteslider');
+    Route::delete('/destroy/{id}', [SliderController::class, 'destroy'])->name('admin.destroy');
+    //Route::delete('/yesdeleteslider/{id}', [SliderController::class, 'yesdeleteslider'])->name('admin.yesdeleteslider');
     Route::put('/activateslider/{id}', [SliderController::class, 'activateslider'])->name('admin.activateslider');
     Route::put('/unactivateslider/{id}', [SliderController::class, 'unactivateslider'])->name('admin.unactivateslider');
 

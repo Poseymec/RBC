@@ -27,8 +27,7 @@
                 </h2>
             </div>
             <p class="mb-6 text-gray-700 dark:text-gray-300">
-                Pour tarif gros ou pour gros volumes, envoyez-nous un message directement. Nous vous répondrons dans les plus brefs délais.
-
+               Pour tarif gros ou pour gros volumes, envoyez-nous un message directement. Nous vous répondrons dans les plus brefs délais.
             </p>
 
             <!-- ✅ Formulaire contact avec @csrf -->

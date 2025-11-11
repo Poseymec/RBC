@@ -200,7 +200,7 @@
           // Créer un formulaire dynamique
           const form = document.createElement('form');
           form.method = 'POST';
-          form.action = '/admin/productimage/' + imageId;
+          form.action = '/admin/destroyProductImage/' + imageId;
 
           const csrf = document.createElement('input');
           csrf.type = 'hidden';

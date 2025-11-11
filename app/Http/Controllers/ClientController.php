@@ -2,125 +2,123 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Avi;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
 {
-    //
-     
+    public function home()
+    {
+        $sliders = Slider::where('status', 1)->get();
 
-    //fonction pour la page d'accueil
-    public function home(){
-        //sliders
-        $sliders= Slider::where('status',1)->get();
-
-        // les produits en fonction des differentes categories
-        $categories=Category::with(['products'=>function($requette){
-            $requette->where('status',1)->with(['avis'=>function($requette){
-                $requette->select('product_id', DB::raw('MAX(rating) as max_rating'))->groupBy('product_id');
-            }])->get();
+        $categories = Category::with(['products' => function ($query) {
+            $query->where('status', 1)->with(['avis' => function ($q) {
+                $q->select('product_id', DB::raw('MAX(rating) as max_rating'))
+                    ->groupBy('product_id');
+            }]);
         }])->get();
 
-        $user=Auth::user();
-        $bienvenu='';
-       
-        if($user){
-            $bienvenu='Bienvenue,'.$user->name;
+        $user = Auth::user();
+        $bienvenu = '';
+
+        if ($user) {
+            $bienvenu = 'Bienvenue, ' . $user->name;
         }
-        if(!Session::has('bienvenu_displayed'&&empty($bienvenu))){
 
-            Session::flash('bienvenu',$bienvenu);
-
-            Session::put('bienvenu_displayed',false);
+        if (!Session::has('bienvenu_displayed') && !empty($bienvenu)) {
+            Session::flash('bienvenu', $bienvenu);
+            Session::put('bienvenu_displayed', true);
         }
-       
-       // return view('client.home',compact ('sliders','categories'));
-        return view('client.home',compact ('sliders','categories',));
-    }
-    
 
-    /**----------------------------------------------------------------------------------------------- */
-    //fonction qui gere la page store
-    public function store(){
-
-        //afficher les produit si et seulement si le status est egal a 1
-        $produits=Product::get();
-
-       
-     
-        //afficher les produit dans la page store en ar categories
-       $categories=Category::withCount('products')->with(['products'=>function($requette){
-            $requette->where('status',1)->with(['avis'=>function($requette){
-                $requette->select('product_id', DB::raw('MAX(rating) as max_rating'))->groupBy('product_id');
-                  
-              
-            }])->get();}])->get();
-
-           /* $categories=Category::with(['products'=>function($query){
-                $query->where('status',1)->paginate(6);
-            }])->get();*/
-           
-       
-     foreach($categories as $categorie){
-        $categorie->products=$categorie->products()->paginate(6);
-      }
-    
-
-  
-       
-
-        return view('client.store',compact('categories','produits','categorie'));
+        return view('client.home', compact('sliders', 'categories'));
     }
 
+    // 🔥 Méthode store refondue : recherche + filtrage + pagination
+    public function store(Request $request)
+    {
+        // Récupérer les paramètres
+        $searchTerm = $request->input('q');
+        $selectedCategory = $request->input('category');
 
-    /**---------------------------------------------------------------------- */
-    //fonction qui gere la partie où les produits sont presentés en details
-    public function productdetail($id){
-        //les promotion
-        $promotion=Promotion::find($id);
-        //les produits
-        $product=Product::find($id);
-        //afficher la note la plus grande donnée par les clients 
-       $higthRating=$product->avis()->max('rating');
-        //afficher les avis des clients
-       $productAvis1=$product->avis;
-        
-       //afficher dans la page detail les produit de la meme categorie que le produit en description
-        $categorie=Category::where('id',$product->category_id)->with(['products'=>function($requette){
-            $requette->where('status',1)->with(['avis'=>function($requette){
-                $requette->select( 'product_id',DB::raw('MAX(rating) as max_rating'))->groupBy('product_id');
-            }])->get();}])->first();
-        $selectCategories= $categorie->products->shuffle()->take(4);
+        // Charger toutes les catégories avec le nombre de produits actifs (pour le filtre)
+        $categories = Category::withCount(['products as active_product_count' => function ($query) {
+            $query->where('status', 1);
+        }])->get();
 
+        // Requête de base : produits actifs avec relation catégorie
+        $productsQuery = Product::where('status', 1);
 
-        return view('client.productdetail',compact('product','selectCategories','promotion','higthRating','productAvis1'));
+        // Appliquer la recherche
+        if ($searchTerm) {
+            $productsQuery->where(function ($q) use ($searchTerm) {
+                $q->where('product_name', 'like', "%{$searchTerm}%")
+                    ->orWhere('product_description', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        // Appliquer le filtre par catégorie
+        if ($selectedCategory) {
+            $productsQuery->where('category_id', $selectedCategory);
+        }
+
+        // Paginer les résultats (6 par page)
+        $products = $productsQuery->paginate(6)->appends($request->only(['q', 'category']));
+
+        // Compter le total des produits filtrés
+        $totalProducts = $products->total();
+
+        return view('client.store', compact('products', 'categories', 'searchTerm', 'selectedCategory', 'totalProducts'));
     }
 
+    public function productdetail($id)
+    {
+        $product = Product::findOrFail($id);
+        $promotion = Promotion::find($id); // ⚠️ Vérifie si cette logique est correcte (Promotion::find($id) ?)
+        $higthRating = $product->avis()->max('rating');
+        $productAvis1 = $product->avis;
 
-    public function checkout(){
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('status', 1)
+            ->where('id', '!=', $product->id)
+            ->with(['avis' => function ($q) {
+                $q->select('product_id', DB::raw('MAX(rating) as max_rating'))
+                    ->groupBy('product_id');
+            }])
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        return view('client.productdetail', compact(
+            'product',
+            'relatedProducts',
+            'promotion',
+            'higthRating',
+            'productAvis1'
+        ));
+    }
+
+    public function checkout()
+    {
         return view('client.checkout');
     }
 
+    // 🔍 Ancienne recherche (tu peux la garder ou la supprimer)
+    public function rechercheclient(Request $request)
+    {
+        $recherche = $request->input('mot');
+        $resultatProduct = Product::where('product_name', 'LIKE', "%$recherche%")
+            ->orWhere('product_description', 'LIKE', "%$recherche%")
+            ->get();
+        $resultatPromo = Promotion::where('description1', 'LIKE', "%$recherche%")
+            ->orWhere('description2', 'LIKE', "%$recherche%")
+            ->get();
 
-    //fonction  pour la recherche 
-
-    public function rechercheclient(Request  $request){
-        //
-        $recherche=$request->input('mot');
-        $resultatProduct=Product::where('product_name','LIKE',"%$recherche%")->orWhere('product_description','LIKE',"%$recherche%")->orWhere('product_category','LIKE',"%$recherche%")->get();
-        $recherche=$request->input('mot');
-        $resultatPromo=Promotion::where('description1','LIKE',"%$recherche%")->orWhere('description2','LIKE',"%$recherche%")->get();
-
-        return view('client.resultat',compact('resultatPromo','resultatProduct'));
-
+        return view('client.resultat', compact('resultatPromo', 'resultatProduct'));
     }
 }

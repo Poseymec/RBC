@@ -14,21 +14,33 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null :redirect()->route('login')->with('error','Connectez-vous avant!');
+        if (! $request->expectsJson()) {
+            // On stocke un message flash avant redirection
+            session()->flash('error', 'Connectez-vous avant!');
+            return route('login');
+        }
+
+        return null;
     }
-   /*public function handle($request, Closure $next, ...$guards)
+
+    /*
+    // Optionnel : gestion de la session expirée
+    public function handle($request, Closure $next, ...$guards)
     {
-        if(Auth::check()){
-            $sessionTimeoutInMinutes=config('session.lifetime');
-            $lastActivity=session('last_activity');
-            if(time()-$lastActivity>($sessionTimeoutInMinutes*60)){
+        if (Auth::check()) {
+            $sessionTimeoutInMinutes = config('session.lifetime');
+            $lastActivity = session('last_activity');
+
+            if (time() - $lastActivity > ($sessionTimeoutInMinutes * 60)) {
                 Auth::logout();
                 session()->flush();
-                return redirect()->route('login')->with('status','Votre session a expiée. Veillez vous reconnecter.');
+                return redirect()->route('login')->with('status', 'Votre session a expiré. Veuillez vous reconnecter.');
             }
         }
-        session(['last_activity'=>time()]);
 
-        return parent::handle($request,$next, ...$guards);
-    }*/
+        session(['last_activity' => time()]);
+
+        return parent::handle($request, $next, ...$guards);
+    }
+    */
 }

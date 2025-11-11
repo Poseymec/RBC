@@ -8,12 +8,10 @@
       </h1>
     </div>
 
-
     <!-- Qui sommes-nous ? -->
     <section class="mb-16 max-w-3xl mx-auto text-center">
-
       <p class="text-gray-800 dark:text-gray-300 text-xl leading-relaxed">
-         Rainbow Business and Consulting, une entreprise basée au Cameroun et au Canada qui se consacre à la distribution et à la représentation de produits de qualité pour les secteurs de la restauration, de la grande distribution et de l'hygiène . <br>
+        Rainbow Business and Consulting, une entreprise basée au Cameroun et au Canada qui se consacre à la distribution et à la représentation de produits de qualité pour les secteurs de la restauration, de la grande distribution et de l'hygiène.<br>
         <b>Nous mettons à votre disposition des produits de qualité à des prix imbattables</b>.
       </p>
     </section>
@@ -72,7 +70,7 @@
       </div>
 
       <div class="space-y-6 max-w-4xl mx-auto">
-        <!-- Valeur 1 -->
+        <!-- Valeur 1 : Qualité & Intégrité -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
                     transition-all duration-300 ease-out
                     hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
@@ -83,47 +81,25 @@
           </p>
         </div>
 
-        <!-- Valeur 2 -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
-                    transition-all duration-300 ease-out
-                    hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
-                    cursor-pointer">
-          <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Innovation & Amélioration continue</h3>
-          <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-            Fidèle à nos engagements en faveur d'une performance continue, nous cherchons sans cesse à améliorer nos pratiques logistiques, nos produits et notre expérience client.
-          </p>
-        </div>
-
-        <!-- Valeur 3 -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
-                    transition-all duration-300 ease-out
-                    hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
-                    cursor-pointer">
-          <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Responsabilité & Impact social</h3>
-          <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-            Nous plaçons l'humain et la société au coeur de notre modèle. Nos initiatives soutiennent l'emploi local, l'accès à des produits sûrs et la sensibilisation à l'hygiène et au bien-être
-          </p>
-        </div>
-
-        <!-- Valeur 4 -->
+        <!-- Valeur 2 : Proximité & Service -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
                     transition-all duration-300 ease-out
                     hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
                     cursor-pointer">
           <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Proximité & Service</h3>
           <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-            Etre proche de nos clients, comprendre leurs besoins et y répondre avec efficacité : c'est la base de notre culture d'entreprise
+            Etre proche de nos clients, comprendre leurs besoins et y répondre avec efficacité : c'est la base de notre culture d'entreprise.
           </p>
         </div>
 
-        <!-- Valeur 5 -->
+        <!-- Valeur 3 : Responsabilité & Impact social -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-7
                     transition-all duration-300 ease-out
                     hover:shadow-xl hover:scale-[1.01] hover:border-[#E8192C]/30 dark:hover:border-[#E8192C]/40
                     cursor-pointer">
-          <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Fiabilité & Excellence</h3>
+          <h3 class="font-bold text-xl text-[#E8192C] mb-2">• Responsabilité & Impact social</h3>
           <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-            Nous visons l'excellence opérationnelle dans tout ce que nous entreprenons.
+            Nous plaçons l'humain et la société au coeur de notre modèle. Nos initiatives soutiennent l'emploi local, l'accès à des produits sûrs et la sensibilisation à l'hygiène et au bien-être.
           </p>
         </div>
       </div>
